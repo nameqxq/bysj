@@ -1,0 +1,59 @@
+-- Create table
+create table T_BS_ANNOUNCEMENT
+(
+  title         VARCHAR2(50) not null,
+  guid          VARCHAR2(32) default sys_guid() not null,
+  create_date   DATE default sysdate not null,
+  remark        VARCHAR2(500),
+  create_person VARCHAR2(16) not null,
+  alive_flag    VARCHAR2(1) default '1' not null,
+  change_date   DATE default sysdate,
+  change_person VARCHAR2(16),
+  context       VARCHAR2(1500) not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_ANNOUNCEMENT.title
+  is '标题';
+comment on column T_BS_ANNOUNCEMENT.guid
+  is '主键';
+comment on column T_BS_ANNOUNCEMENT.create_date
+  is '创建时间';
+comment on column T_BS_ANNOUNCEMENT.remark
+  is '备注';
+comment on column T_BS_ANNOUNCEMENT.create_person
+  is '创建用户';
+comment on column T_BS_ANNOUNCEMENT.alive_flag
+  is '数据有效标记（1为有效，0无效）';
+comment on column T_BS_ANNOUNCEMENT.change_date
+  is '改变时间';
+comment on column T_BS_ANNOUNCEMENT.change_person
+  is '修改人';
+comment on column T_BS_ANNOUNCEMENT.context
+  is '内容';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_ANNOUNCEMENT
+  add constraint T_BS_ANNOUNCEMENT_GUID_PK primary key (GUID)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

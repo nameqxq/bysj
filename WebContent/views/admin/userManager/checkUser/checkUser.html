@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|用户管理 </title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/admin/userManager/checkUser/checkUser.css" rel="stylesheet">
+		<script id="userPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td data-type="userName" data-info="{{>userName}}"><a>{{>userName}}</a></td>
+					<td data-type="createDate"><a>{{>createDate}}</a></td>
+					<td data-type="phoneNumber"><a>{{>phoneNumber}}</a></td>
+					<td data-type="studentId"><a>{{>student==null?"未绑定":student.id}}</a></td>
+					<td data-type="dormitoryNumber"><a>{{>dormitory==null?"未绑定":dormitory.dormitoryNumber}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="5">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+		<script id="stuPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td data-type="id" data-info="{{>id}}"><a>{{>id}}</a></td>
+					<td data-type="name"><a>{{>name}}</a></td>
+					<td data-type="admissionDate"><a>{{>admissionDate}}</a></td>
+					<td data-type="className"><a>{{>className}}</a></td>
+					<td data-type="dormitoryNumber"><a>{{>dormitory==null?"未绑定":dormitory.dormitoryNumber}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="5">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+		<script id="TipBoxTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td data-type="userName"><a>{{>userName}}</a></td>
+					<td data-type="loginDate"><a>{{>loginDate}}</a></td>
+					<td data-type="logoutDate"><a>{{>logoutDate}}</a></td>
+					<td data-type="onlineTime"><a>{{>onlineTime==null?"在线":onlineTime}}</a></td>
+					<td data-type="loginIp"><a>{{>loginIp}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="5">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column rightPage">
+					<div class="row clearfix">
+						<div class="col-md-12 col-sm-12 column">
+							<ul class="nav nav-tabs tablePage">
+								<li id="userTab">
+									 <a style="color:#555;" href="javaScript:void(0)">用户信息</a>
+								</li>
+								<li id="stuTab">
+									 <a style="color:#555;" href="javaScript:void(0)">学生信息</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div id="userPage"  style = "display:none" >
+							<br>
+							<div class="panel panel-default">
+								<br>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<form class="form-inline" role="form">
+										<div class="form-group" style="width: 25%">
+										    <label  for="userName">用户名：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="userName" placeholder="01..">
+										</div>
+										<div class="form-group " style="width: 25%">
+										    <label  for="dormitoryNumber ">宿舍号：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="dormitoryNumber" placeholder="06#01#29...">
+										</div>
+										<div class="form-group" style="width: 25%">
+										    <label  for="studentId">学号：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="studentId" placeholder="06..">
+										</div>
+										<div class="btn search btn-default">search</div>
+									</form>
+								</div>
+								<br>
+							</div>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												用户名
+											</th>
+											<th>
+												创建时间
+											</th>
+											<th>
+												联系方式
+											</th>
+											<th>
+												学号
+											</th>
+											<th>
+												宿舍
+											</th>
+										</tr>
+									</thead>
+									<tbody class="userPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>
+						</div>
+						<!-- userPage end -->
+						<div id="stuPage"  style = "display:none" >
+							<br>
+							<div class="panel panel-default">
+								<br>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<form class="form-inline" role="form">
+										<div class="form-group" style="width: 40%">
+										    <label  for="id">学号：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="id" placeholder="06..">
+										</div>
+										<div class="form-group " style="width: 40%">
+										    <label  for="dormitoryNumber ">宿舍号：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="dormitoryNumber" placeholder="06#01#29...">
+										</div>
+										<div class="btn search btn-default">search</div>
+									</form>
+								</div>
+								<br>
+							</div>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												学号
+											</th>
+											<th>
+												姓名
+											</th>
+											<th>
+												入学时间
+											</th>
+											<th>
+												班级
+											</th>
+											<th>
+												宿舍
+											</th>
+										</tr>
+									</thead>
+									<tbody class="stuPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>
+						</div>
+						<!-- stuPage end -->
+						<div class="row">
+							<div class="col-md-6 col-sm-6 column form-group">
+								<div class="col-md-4 col-sm-4">
+								</div>
+								<div class="btn btn-default col-md-4 col-sm-4 entering">
+									信息录入
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 column form-group">
+								<div class="col-md-4 col-sm-4">
+								</div>
+								<div class="btn btn-default col-md-4 col-sm-4 downLoad">
+									模板下载
+								</div>
+							</div>
+						</div>
+						<!-- load end -->
+					</div>
+					<!-- rightPage end -->
+					<div class="tipBox1 col-md-8" style="display:none">
+						<div class="col-md-6 col-sm-6">
+							<div class="btn btn-primary stuUpLoad">学生信息导入</div>
+							<input class="form-control" data-type="uploadExcelForStu" type="file"  style="display:none"/>
+						</div>
+						<div class="col-md-6 col-sm-6">
+							<div class="btn btn-primary dorUpLoad">宿舍信息导入</div>
+							<input class="form-control" data-type="uploadExcelForDor" type="file"  style="display:none"/>
+						</div>
+					</div>
+					<!-- tipBox1 end -->
+					<div class="tipBox2 col-md-8" style="display:none">
+						<div class="col-md-6 col-sm-6">
+							<div class="btn btn-primary stuDownLoad">学生信息导入模板</div>
+						</div>
+						<div class="col-md-6 col-sm-6">
+							<div class="btn btn-primary dorDownLoad">宿舍信息导入模板</div>
+						</div>
+					</div>
+					<!-- tipBox2 end -->
+					<div class="tipBox3 col-md-8" style="display:none">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>
+										用户名
+									</th>
+									<th>
+										上线时间
+									</th>
+									<th>
+										下线时间
+									</th>
+									<th>
+										登录时长
+									</th>
+									<th>
+										登录IP
+									</th>
+								</tr>
+							</thead>
+							<tbody class="tipBoxTbody">
+								
+							</tbody>
+						</table>
+						<div class="row">
+								<div class="col-md-1 col-sm-1 column"></div>
+								<div class="paging"></div>
+						</div>
+					</div>
+					<!-- tipBox3 end -->
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

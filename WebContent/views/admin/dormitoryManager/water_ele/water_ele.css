@@ -1,0 +1,13 @@
+tr,th{
+	text-align:center;
+	vertical-align:middle;
+}
+
+tbody tr a{
+	cursor: pointer;
+}
+
+.elePrice div,.elePrice div input,.waterPrice div,.waterPrice div input{
+	text-align:center;
+	margin:0 auto;
+}

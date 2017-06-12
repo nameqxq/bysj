@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.RepairBillLogMapper">
+	<resultMap id="repairBillLog" type="RepairBillLog">
+	    <id column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="REPAIR_BILL_GUID" jdbcType="VARCHAR" property="repairBillGuid" />
+	    <result column="PRE_GUID" jdbcType="VARCHAR" property="preGuid" />
+	    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+	    <result column="CREATE_DATE"  property="createDate" />
+	    <result column="CREATE_PERSON" jdbcType="VARCHAR" property="createPerson" />
+	    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	
+	
+	<select id="select" parameterType="RepairBillLog" resultMap="repairBillLog">
+		select
+			*
+		from 
+			quxiqi.t_bs_repair_bill_log
+		<where>
+			  <if test="guid != null">
+		       and GUID = #{guid}
+		      </if>
+		      <if test="repairBillGuid != null">
+		       and REPAIR_BILL_GUID = #{repairBillGuid}
+		      </if>
+		      <if test="preGuid != null">
+		       and PRE_GUID = #{preGuid}
+		      </if>
+		      <if test="status != null">
+		       and STATUS = #{status}
+		      </if>
+		      <if test="createDate != null">
+		       and CREATE_DATE = #{createDate}
+		      </if>
+		      <if test="createPerson != null">
+		       and CREATE_PERSON = #{createPerson}
+		      </if>
+		      <if test="remark != null">
+		       and REMARK = #{remark}
+		      </if>
+		</where>	
+			<if test="orderBy != null">	
+				order by ${orderBy}
+			</if>	
+	</select>
+	
+	
+	<insert id="insert" parameterType="RepairBillLog">
+	   insert into QUXIQI.T_BS_REPAIR_BILL_LOG(
+	        REPAIR_BILL_GUID,
+	        PRE_GUID,
+	        STATUS,
+	        CREATE_PERSON,
+	        REMARK
+	        )
+	    select 
+	    		temp2.repairBillGuid,
+		        decode(temp1.preGuid,null,'',temp1.preGuid) as preGuid, 
+		        temp2.status,
+		        temp2.createPerson, 
+		        temp2.remark
+		from (		
+		   	select * 
+		    from (
+		    	select 
+		    		m.guid as preGuid,
+		    		m.REPAIR_BILL_GUID as REPAIR_BILL_GUID
+		    	from 
+		    		quxiqi.t_bs_repair_bill_log m
+		    	where
+		        	m.REPAIR_BILL_GUID = #{repairBillGuid}
+		    	order by m.create_date desc 	
+		    ) 
+		    where
+		    	rownum = 1
+	   	) temp1 
+	    right join (
+	    	select 
+	    		#{repairBillGuid,jdbcType=VARCHAR} as repairBillGuid,
+	    		#{status,jdbcType=VARCHAR} as status,
+	    		#{createPerson,jdbcType=VARCHAR} as createPerson,
+	    		#{remark,jdbcType=VARCHAR} as remark
+			from dual	
+	    ) temp2
+	    on 
+	    temp1.REPAIR_BILL_GUID = temp2.repairBillGuid   
+	</insert>
+</mapper>

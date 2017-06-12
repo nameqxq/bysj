@@ -1,0 +1,91 @@
+-- Create table
+create table T_BS_USER
+(
+  user_name        VARCHAR2(16) not null,
+  password         VARCHAR2(16) not null,
+  phone_number     VARCHAR2(11) not null,
+  student_id       VARCHAR2(20),
+  age              NUMBER,
+  gender           VARCHAR2(1) not null,
+  email            VARCHAR2(30),
+  usertypes        VARCHAR2(20) default '10' not null,
+  dormitory_number VARCHAR2(10),
+  create_date      DATE default sysdate not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_USER.user_name
+  is '用户名';
+comment on column T_BS_USER.password
+  is '密码';
+comment on column T_BS_USER.phone_number
+  is '手机号';
+comment on column T_BS_USER.student_id
+  is '学号';
+comment on column T_BS_USER.age
+  is '年龄';
+comment on column T_BS_USER.gender
+  is '性别：0为女，1为男';
+comment on column T_BS_USER.email
+  is '邮箱地址';
+comment on column T_BS_USER.usertypes
+  is '用户类型：''10''为普通用户，''20''为管理员';
+comment on column T_BS_USER.dormitory_number
+  is '宿舍号：06(楼号)#01(层数)#29';
+comment on column T_BS_USER.create_date
+  is '创建时间';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_USER
+  add constraint T_BS_USER_USER_NAME_PK primary key (USER_NAME)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table T_BS_USER
+  add constraint T_BS_USER_PHONE_NUMBER_UN unique (PHONE_NUMBER)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table T_BS_USER
+  add constraint T_BS_USER_STUDENT_ID_UN unique (STUDENT_ID);
+-- Create/Recreate indexes 
+create unique index T_BS_USER_STUDENT_ID on T_BS_USER (STUDENT_ID)
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

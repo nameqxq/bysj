@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.AnnouncementMapper">
+	<resultMap id="announcement" type="Announcement">
+	    <id column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+	    <result column="CONTEXT" jdbcType="VARCHAR" property="context" />
+	    <result column="CREATE_DATE"  property="createDate" />
+	    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+	    <result column="CREATE_PERSON" jdbcType="VARCHAR" property="createPerson" />
+	    <result column="ALIVE_FLAG" jdbcType="VARCHAR" property="aliveFlag" />
+	    <result column="CHANGE_DATE"  property="changeDate" />
+	    <result column="CHANGE_PERSON" jdbcType="VARCHAR" property="changePerson" />
+	</resultMap>
+  	
+  	<insert id="insert" parameterType="Announcement">
+  		insert into quxiqi.t_bs_announcement
+	  	<trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="guid != null">
+	        GUID,
+	      </if>
+	      <if test="title != null">
+	        TITLE,
+	      </if>
+	      <if test="context != null">
+	        CONTEXT,
+	      </if>
+	      <if test="createDate != null">
+	        CREATE_DATE,
+	      </if>
+	      <if test="remark != null">
+	        REMARK,
+	      </if>
+	      <if test="createPerson != null">
+	        CREATE_PERSON,
+	      </if>
+	      <if test="aliveFlag != null">
+	        ALIVE_FLAG,
+	      </if>
+	      <if test="changeDate != null">
+	        CHANGE_DATE,
+	      </if>
+	      <if test="changePerson != null">
+	        CHANGE_PERSON,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="guid != null">
+	        #{guid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="title != null">
+	        #{title,jdbcType=VARCHAR},
+	      </if>
+	      <if test="context != null">
+	        #{context,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createDate != null">
+	        #{createDate,jdbcType=DATE},
+	      </if>
+	      <if test="remark != null">
+	        #{remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createPerson != null">
+	        #{createPerson,jdbcType=VARCHAR},
+	      </if>
+	      <if test="aliveFlag != null">
+	        #{aliveFlag,jdbcType=VARCHAR},
+	      </if>
+	      <if test="changeDate != null">
+	        #{changeDate,jdbcType=DATE},
+	      </if>
+	      <if test="changePerson != null">
+	        #{changePerson,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+  	</insert>
+  	
+  	<select id="select" parameterType="Announcement" resultMap="announcement">
+  		select 
+  			*
+  		from 
+  			quxiqi.t_bs_announcement
+  		<where>
+  		  <if test="title != null">
+	        title = #{title,jdbcType=VARCHAR}
+	      </if>
+	      <if test="context != null">
+	       and	context =  #{context,jdbcType=VARCHAR}
+	      </if>
+	      <if test="createPerson != null">
+	       and create_Person = #{createPerson,jdbcType=VARCHAR}
+	      </if><if test="aliveFlag != null">
+	       and alive_Flag = #{aliveFlag,jdbcType=VARCHAR}
+	      </if>
+  		</where>		
+  		<if test="orderBy !=null">
+  			order by ${orderBy}
+  		</if>
+  	</select>
+  	
+  	<select id="selectByGuid" parameterType="Announcement" resultMap="announcement">
+  		select 
+  			*
+  		from 
+  			quxiqi.t_bs_announcement
+  		where
+  			guid = #{guid}
+  	</select>
+  	
+  	<select id="selectLike" parameterType="Announcement" resultMap="announcement">
+  		select 
+  			*
+  		from 
+  			quxiqi.t_bs_announcement
+  		<where>
+  		  <if test="title != null">
+	       and title like '%'||#{title,jdbcType=VARCHAR}||'%'
+	      </if>
+	      <if test="context != null">
+	       and	context like '%'||#{context,jdbcType=VARCHAR}||'%'
+	      </if>
+	      <if test="createPerson != null">
+	       and create_Person like '%'||#{createPerson,jdbcType=VARCHAR}||'%'
+	      </if>
+  		</where>
+  		<if test="orderBy !=null">
+  			order by ${orderBy}
+  		</if>		
+  	</select>
+  	
+  	<update id="update" parameterType="Announcement" >
+  		update QUXIQI.T_BS_ANNOUNCEMENT
+	    <set>
+	      <if test="title != null">
+	        TITLE = #{title,jdbcType=VARCHAR},
+	      </if>
+	      <if test="context != null">
+	        CONTEXT = #{context,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createDate != null">
+	        CREATE_DATE = #{createDate,jdbcType=DATE},
+	      </if>
+	      <if test="remark != null">
+	        REMARK = #{remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createPerson != null">
+	        CREATE_PERSON = #{createPerson,jdbcType=VARCHAR},
+	      </if>
+	      <if test="aliveFlag != null">
+	        ALIVE_FLAG = #{aliveFlag,jdbcType=VARCHAR},
+	      </if>
+	      <if test="changeDate != null">
+	        CHANGE_DATE = #{changeDate,jdbcType=DATE},
+	      </if>
+	      <if test="changePerson != null">
+	        CHANGE_PERSON = #{changePerson,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where GUID = #{guid,jdbcType=VARCHAR}
+  	</update>
+</mapper>

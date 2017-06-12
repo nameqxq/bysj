@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.ElePriceMapper">
+	<resultMap id="elePrice" type="ElePrice">
+		<id column="YEAR" jdbcType="VARCHAR" property="year" />
+		<id column="MONTH" jdbcType="VARCHAR" property="month" />
+		<result column="ELE_PRICE" jdbcType="DECIMAL" property="elePrice" />
+		<result column="WATER_PRICE" jdbcType="DECIMAL" property="waterPrice" />
+	</resultMap>
+	<select id="select" parameterType="ElePrice" resultMap="elePrice">
+		select 
+			*
+		from 
+			quxiqi.t_bs_ele_price
+		<where>
+			<if test="year != null">
+				and YEAR = #{year,jdbcType=VARCHAR}
+			</if>
+			<if test="month != null">
+				and MONTH = #{month,jdbcType=VARCHAR}
+			</if>
+			<if test=" elePrice != null">
+				and ELE_PRICE = #{ elePrice,jdbcType=DECIMAL}
+			</if>
+			<if test=" waterPrice != null">
+				and WATER_PRICE = #{ waterPrice,jdbcType=DECIMAL}
+			</if>
+		</where>
+			<if test="orderBy != null">	
+				order by ${orderBy}
+			</if>		
+	</select> 
+	
+	<update id="update" parameterType="ElePrice">
+		 update 
+		 	QUXIQI.T_BS_ELE_PRICE
+   		 set 
+   		 	ELE_PRICE = #{elePrice,jdbcType=DECIMAL},
+     		WATER_PRICE = #{waterPrice,jdbcType=DECIMAL}
+   	 	 where 
+   	 		YEAR = #{year,jdbcType=VARCHAR}
+      		and 
+      		MONTH = #{month,jdbcType=VARCHAR}
+	</update> 
+	
+	<insert id="insert" parameterType="ElePrice">
+		insert into 
+			QUXIQI.T_BS_ELE_PRICE(
+				ELE_PRICE,
+				WATER_PRICE,
+				YEAR,
+				MONTH
+			)
+		VALUES(
+			#{elePrice,jdbcType=DECIMAL},
+			#{waterPrice,jdbcType=DECIMAL},
+			#{year,jdbcType=VARCHAR},
+			#{month,jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>

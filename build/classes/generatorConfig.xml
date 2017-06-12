@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration 
+	PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- <properties resource="oracle.properties"/> 
+	-->
+	<classPathEntry location="D:\tomcat\sts\apache-tomcat-8.0.24\webapps\bysj\WEB-INF\lib\ojdbc14.jar"/>
+	<context id="oracle_bysj" defaultModelType="flat">
+		<!-- 注解设置 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="false"/>
+			<property name="suppressDate" value="false"/>
+		</commentGenerator>
+		
+		<!-- 数据库连接信息 -->
+		<jdbcConnection connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:XE" 
+			driverClass="oracle.jdbc.driver.OracleDriver"
+			password="asas123" 
+			userId="quxiqi" />
+		
+		<!-- 实体类生成的包名 -->
+		<javaModelGenerator targetPackage="com.quxiqi.bysj.bean.test"
+			targetProject="bysj" >
+			<!-- 父类 -->
+			<property name="rootClass" value="com.quxiqi.bysj.bean.MyPage"/>
+			<!-- public void setUsername(String username) 
+				{this.username = username == null ? null : username.trim();} -->
+			<property name="trimStrings" value="true" />	
+		</javaModelGenerator>
+		
+		
+		<sqlMapGenerator targetPackage="com.quxiqi.sql.test2" 
+			targetProject="bysj" />
+		
+		<!-- xml生成方式 -->
+		<javaClientGenerator targetPackage="com.quxiqi.sql.test1"
+			targetProject="bysj" type="XMLMAPPER" />
+			
+			
+		<table schema="quxiqi" tableName="t_bs_%">
+		</table>
+	</context>
+</generatorConfiguration>

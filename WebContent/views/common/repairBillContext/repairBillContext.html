@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|维修单 </title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<!-- <link href="/common/css/common.css" rel="stylesheet"> -->	
+		<link href="/views/common/repairBillContext/repairBillContext.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftPage">
+				</div>
+				<div class="col-md-8 col-sm-8 column panel panel-default" id="centrePage" >
+					<div class="carousel slide" id="carousel-80483" style="display:none">
+						<ol class="carousel-indicators">
+						</ol>
+						<div class="carousel-inner">
+						</div> 
+						<a class="left carousel-control" href="#carousel-80483" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</a> 
+						<a class="right carousel-control" href="#carousel-80483" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div>
+					<div>
+						<h1 class="title">
+						</h1>
+						<p class="context">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+						<br>
+						<div class="col-md-12 col-sm-12"><p class="pull-right"><span>申请时间：</span><span class="createDate"></span></p></div>
+						<div class="col-md-12 col-sm-12"><p class="pull-right"><span>申请人：</span><span class="personName"></span></p></div>
+						<div class="col-md-12 col-sm-12"><p class="pull-right"><span>联系方式：</span><span class="phoneNumber"></span></p></div>
+						<div class="col-md-12 col-sm-12"><p class="pull-right"><span>寝室号：</span><span class="dormitoryNumber"></span></p></div>
+					</div>
+					<br>
+					<div class="refuse" style="display:none">
+						<h3>审核未通过：</h3>
+						<p><span>原因：</span><span class="remark"></span></p>
+						<p class="pull-right"><span>操作时间：</span><span class="refuseDate"></span></p>
+					</div>
+					<br>
+					<div class="processedIng" style="display:none">
+						<h3>维修中：</h3>
+						<p><span>维修人：</span><span class="handlerPerson"></span></p>
+						<p><span>维修人电话：</span><span class="handlerPhone"></span></p>
+						<p><span>预检维修时间：</span><span class="repairDate"></span></p>
+					</div>
+					<br>
+					<div class="processed" style="display:none">
+						<h3>维修反馈：</h3>
+						<p><span>反馈：</span><span class="remark"></span></p>
+						<p><span>实际维修时间：</span><span class="realRepairDate"></span></p>
+						<p class="pull-right"><span>操作时间：</span><span class="modifiDate"></span></p>
+					</div>
+					
+				</div>
+				<div class="col-md-2 column" id="rightPage">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

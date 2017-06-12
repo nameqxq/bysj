@@ -1,0 +1,50 @@
+-- Create table
+create table T_BS_DORMITORY
+(
+  dormitory_number VARCHAR2(10) not null,
+  building_number  VARCHAR2(2) not null,
+  layer_number     VARCHAR2(2) not null,
+  money            NUMBER(18,6) default 0 not null,
+  ele_number       NUMBER(18,6) default 0 not null,
+  water_number     NUMBER(18,6) default 0 not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_DORMITORY.dormitory_number
+  is 'ËÞÉáºÅ£º06(Â¥ºÅ)#01(²ãÊý)#29';
+comment on column T_BS_DORMITORY.building_number
+  is 'Â¥ºÅ';
+comment on column T_BS_DORMITORY.layer_number
+  is '²ãºÅ';
+comment on column T_BS_DORMITORY.money
+  is 'ÇÞÊÒ·ÑÓÃÓà¶î';
+comment on column T_BS_DORMITORY.ele_number
+  is 'µç±í¶ÁÊý';
+comment on column T_BS_DORMITORY.water_number
+  is 'Ë®±í¶ÁÊý';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_DORMITORY
+  add constraint T_BS_DORMITORY_PK primary key (DORMITORY_NUMBER)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

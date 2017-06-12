@@ -1,0 +1,25 @@
+
+tr,th{
+	text-align:center;
+	vertical-align:middle;
+}
+
+tbody tr a{
+	cursor: pointer;
+}
+
+tbody tr div{
+	margin:0 auto;
+	overflow: hidden; /*自动隐藏文字*/
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
+	width:100px; 
+	/* 
+	display: block;
+	*/
+}
+
+.tipBox2 img{
+	width: 100%;
+	height: auto;
+}

@@ -1,0 +1,67 @@
+/* .panel{
+	background:url(/image/default.jpg);	
+} */
+
+.form-control{
+	background-color: transparent;
+}
+
+tr,th{
+	text-align:center;
+	vertical-align:middle;
+}
+
+tbody tr a{
+	cursor: pointer;
+}
+
+tbody tr div{
+	margin:0 auto;
+	overflow: hidden; /*自动隐藏文字*/
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
+	width:100px; 
+	/* 
+	display: block;
+	*/
+}
+
+.tipBox2 img{
+	width: 100%;
+	height: auto;
+}
+.add,.haveImg{
+	margin:3px;
+}
+.add{
+   background:url(/image/image_add.png) no-repeat center;
+   filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+   -moz-background-size:100% 100%;
+   background-size:100% 100%;
+}
+
+.add input[type="file"]{
+    position: absolute;
+    left: -100%;
+    top: -100%;
+    width: 200%;
+    height: 200%;
+    cursor: pointer;
+    outline: none;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.haveImg .del{
+    display: none;
+    position: absolute;
+    right: -7.5px;
+    top: -7.5px;
+    width: 15px;
+    height: 15px;
+    background: url(/image/image_close.png) no-repeat center;
+}
+
+.haveImg:hover .del{
+    display: block;
+}

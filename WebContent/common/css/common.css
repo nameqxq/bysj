@@ -1,0 +1,208 @@
+.tipBox_overlay {
+    overflow: hidden;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    z-index: 8888;
+    background: url("/image/overlay.png");
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+}
+.tipBox {
+    position: fixed;
+    left : 16.66667%;
+    background-color: #404040;
+  	background: url("/image/default1.jpg");   
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 90000;
+    font-family: 微软雅黑;
+    font-size: 12px;
+    text-align: center;
+    border:1px solid #404040;
+}
+/* @media screen and(max-width=768px){
+		.tipBox img{}
+	
+}
+.tipBox img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+} */
+ 
+#leftTree .h{
+	color:#fff;
+	background-color:#808080;
+}
+#rightPage{
+	filter: alpha(opacity=70); opacity: 0.7;
+}
+ 
+#leftTree a{
+	color:#808080;
+}
+.modal-body{
+	text-align: center;
+}
+
+.msg{
+	text-align: center;
+}
+
+.mask {       
+    overflow: hidden;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    z-index: 10002;
+    background: #000000;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    filter: alpha(opacity=50); opacity: 0.5;
+    text-align:center;
+} 
+
+.remark{
+	position:absolute;  
+	marign:0 auto;
+	left:33.333%; 
+	top:30%;  
+	/* 
+	margin:-100px 0 0 -150px; 
+	width:300px; 
+	height:200px;  */
+} 
+
+body{
+	background:url(/image/circl_bg.jpg);	
+	background-repeat:no-repeat;
+	background-size:100% aotu;
+	
+}
+
+
+
+/** Bealert start*/
+.BeAlert_overlay {
+    overflow: hidden;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    z-index: 9999;
+    background: url("/common/plug-in/tipbox/overlay.png");
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+}
+.BeAlert_box {
+    position: fixed;
+    top: 50%;
+    left: 33.3333333%;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 10000;
+    font-family: 微软雅黑;
+    font-size: 12px;
+    text-align: center;
+}
+.BeAlert_box .BeAlert_image {
+    background: #fff;
+    width: 60px;
+    height: 60px;
+    margin: 10px auto;
+}
+.BeAlert_box .BeAlert_image.warning {
+    background: url("/common/plug-in/tipbox/warning.png");
+    background-size: 60px;
+}
+.BeAlert_box .BeAlert_image.error {
+    background: url("/common/plug-in/tipbox/error.png");
+    background-size: 60px;
+}
+.BeAlert_box .BeAlert_image.info {
+    background: url("/common/plug-in/tipbox/info.png");
+    background-size: 60px;
+}
+.BeAlert_box .BeAlert_image.question {
+    background: url("/common/plug-in/tipbox/question.png");
+    background-size: 60px;
+}
+.BeAlert_box .BeAlert_image.success {
+    background: url("/common/plug-in/tipbox/success.png");
+    background-size: 60px;
+}
+.BeAlert_box .BeAlert_title {
+    font-size: 20px;
+    margin: 5px auto;
+}
+.BeAlert_box .BeAlert_message {
+    font-size: 14px;
+    margin: 5px auto;
+}
+.BeAlert_box .BeAlert_button {
+    margin-top: 20px;
+    display: inline-block;
+}
+.BeAlert_box .BeAlert_button button {
+    display: none;
+    /* background-color: #8CD4F5;
+    color: #fff; */
+    border: none;
+    box-shadow: none;
+    font-size: 17px;
+    font-weight: 500;
+    -webkit-border-radius: 4px;
+    border-radius: 5px;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin: 0 10px;
+    outline: none;
+}
+.BeAlert_box .inputDiv{
+	display : none;
+	left : 16.666666667%;
+}
+/** BeAlert end*/
+
+/**bootstrapvalidator start*/
+.bv-form .help-block {
+    margin-bottom: 0;
+}
+.bv-form .tooltip-inner {
+    text-align: left;
+}
+.nav-tabs li.bv-tab-success > a {
+    color: #3c763d;
+}
+.nav-tabs li.bv-tab-error > a {
+    color: #a94442;
+}
+
+.bv-form .bv-icon-no-label {
+	top: 0;
+}
+
+.bv-form .bv-icon-input-group {
+	top: 0;
+	z-index: 100;
+}
+/**bootstrapvalidator end*/
+.ui-paging-container li{
+	cursor:pointer;
+}
+/**paging start*/
+
+/**paging end*/

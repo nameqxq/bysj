@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|水电管理</title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/stu/dormitory/repair/repair.css" rel="stylesheet">
+		<script id="repairLogPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td class="dormitoryNumber" data-info="{{>guid}}"><a>{{>dormitoryNumber}}</a></td>
+					<td data-type="title" title="{{>title}}"><div><a>{{>title}}</a></div></td>
+					<td data-type="status"><a>{{>status}}</a></td>
+					<td data-type="handlerPerson"><a>{{>handlerPerson}}</a></td>
+					<td data-type="handlerPhone"><a>{{>handlerPhone}}</a></td>
+					<td data-type="repairDate"><a>{{>repairDate}}</a></td>
+					<td data-type="picture" data-info="{{>picture}}"><a>查看</a></td>
+					<td data-type="remark"><div><a>{{>remark}}</a></div></td>
+					<td class="{{>operation==""?"":"operation"}}" data-type="operation"><a>{{>operation}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="9">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column" id="rightPage">
+					<div class="row clearfix">
+						<div class="col-md-12 col-sm-12 column">
+							<ul class="nav nav-tabs tablePage">
+								<li id="addRepairTab" class="active">
+									 <a style="color:#555;" href="javaScript:void(0)">报修</a>
+								</li>
+								<li id="repairLogTab">
+									 <a style="color:#555;" href="javaScript:void(0)">记录</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="addRepairPage">
+							<br/>
+							<div class="col-md-2 col-sm-2"></div>
+							<div class="col-md-8 col-sm-8 panel panel-default">
+								<br>						
+								<h3>维修单~</h3>	
+								<br>	
+								<div class="col-md-2 col-sm-2"></div>
+								<div class="col-md-8 col-sm-8" style="filter: alpha(opacity=100)">
+									<form enctype="multipart/form-data" method="post">
+										<div class="form-group">
+										    <label for="title">标题</label>
+										    <input type="text" class="form-control" name="title" placeholder="你需要一个醒目的标题。。。">
+										</div>
+										<div class="form-group">
+										    <label for="personName">联系人</label>
+										    <input type="text" class="form-control" name="personName" placeholder="维修师傅该联系谁呢~~">
+										</div>
+										<div class="form-group">
+										    <label for="phoneNumber">联系方式</label>
+										    <input type="text" class="form-control" name="phoneNumber" placeholder="怎么联系~">
+										</div>
+										<div class="form-group">
+										    <label for="context">详细描述</label>
+										   	<textarea class="form-control" rows="10"  name="context" placeholder="请输入详细描述，不要超过两百个字哦~~"></textarea>
+										</div>
+										<div class="form-group col-md-12 col-sm-12 addImage">
+										    <label for="files">照片</label>
+									    	<div class="imgs">
+										    	<div class="add col-md-2 col-sm-3">
+										    		<br>
+										    		<br>
+										    		<br>
+										    	</div>
+											   	<input class="upload" type="file" name="files" style="display:none;"/>
+									    	</div>
+										</div>
+										<div class="form-group">
+											<input class="btn btn-default pull-right" type="button" value="提交"/>
+										</div>
+									</form>
+								</div>					
+							</div>
+						</div>
+						<!-- addRrepairPage end -->	
+						<div class="repairLogPage" style="display:none">
+							<br>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												标题
+											</th>
+											<th>
+												状态
+											</th>
+											<th>
+												维修人
+											</th>
+											<th>
+												维修人电话
+											</th>
+											<th>
+												预计维修时间
+											</th>
+											<th>
+												照片
+											</th>
+											<th>
+												备注
+											</th>
+											<th>
+												操作
+											</th>
+										</tr>
+									</thead>
+									<tbody class="repairLogPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>	
+						</div>	
+						<!-- repairBillLogPage end -->		
+					</div>
+				</div>
+				<!-- tipBox -->
+				<div class="tipBox1 col-md-8" style="display:none">
+					<br>
+					<div class="row">
+					<div class="col-md-2 col-sm-2"></div>
+					<div class="col-md-8 col-sm-8">
+						<form class="form" role="form">
+							<div class="form-group">
+							    <label  for="realRepairDate">实际维修时间：</label>
+							    <input type="date" class="form-control" name="realRepairDate" placeholder="xxxx-xx-xx..">
+							</div>
+							<div class="form-group ">
+							    <label  for="remark ">评价反馈：</label>
+							    <textarea rows="10" class="form-control" name="remark" placeholder="对本次维修的评价，不多于200字...（例：效率很快...）"></textarea>
+							</div>
+							<div class="btn submit btn-default" >确定</div>
+						</form>
+					</div>
+					<div class="col-md-2 col-sm-2"></div>	
+					<br>
+					</div>
+				</div>
+				<!-- tipBox1 end -->
+				<div class="tipBox2 col-md-8" style="display:none">
+					
+				</div>
+				<!-- tipBox2 end -->
+			</div>
+		</div>
+	</body>
+</html>

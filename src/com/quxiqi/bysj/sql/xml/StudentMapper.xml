@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.StudentMapper">
+	<resultMap id="student" type="Student">
+	    <id column="ID" jdbcType="VARCHAR" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="age" jdbcType="DECIMAL" property="age" />
+	    <result column="personNumber" jdbcType="VARCHAR" property="personNumber" />
+	    <result column="className" jdbcType="VARCHAR" property="className" />
+	    <result column="admissionDate" jdbcType="DATE" property="admissionDate" />
+	    <result column="schoolYear" jdbcType="DECIMAL" property="schoolYear" />
+	    <result column="gender" jdbcType="VARCHAR" property="gender" />
+	    <association property="dormitory" resultMap="dormitory" javaType="Dormitory">
+	    </association>
+	  </resultMap>
+	
+	<resultMap type="Dormitory" id="dormitory">
+		<id property="dormitoryNumber" column="d_dormitoryNumber"/>
+		<result property="buildingNumber" column="d_buildingNumber"/>
+		<result property="layerNumber" column="d_layerNumber"/>
+		<result property="money" column="d_money"/>
+		<result property="eleNumber" column="d_eleNumber"/>
+		<result property="waterNumber" column="d_waterNumber"/>
+	</resultMap>
+	
+	<select id="select" parameterType="Student" resultMap="student">
+		select 
+			s.ID as "id", 
+			s.NAME as "name", 
+			s.AGE as "age", 
+			s.PERSON_NUMBER as "personNumber", 
+			s.CLASS_NAME as "className", 
+			s.ADMISSION_DATE as "admissionDate", 
+			s.SCHOOL_YEAR as "schoolYear", 
+			s.GENDER as "gender", 
+			s.DORMITORY_NUMBER as "d_dormitoryNumber",
+			d.BUILDING_NUMBER as "d_buildingNumber", 
+			d.LAYER_NUMBER as "d_layerNumber", 
+			d.MONEY as "d_money", 
+			d.ELE_NUMBER as "d_eleNumber", 
+			d.WATER_NUMBER as "d_waterNumber"
+		from 
+			quxiqi.t_bs_student s left join 
+			quxiqi.t_bs_dormitory d
+			on s.dormitory_number = d.dormitory_Number
+		<where>
+			<if test="id != null">
+			  s.id = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null">
+			  s.NAME = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="age != null">
+			  and s.AGE = #{age,jdbcType=DECIMAL}
+			</if>
+			<if test="personNumber != null">
+			  and s.PERSON_NUMBER = #{personNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="className != null">
+			  and s.CLASS_NAME = #{className,jdbcType=VARCHAR}
+			</if>
+			<if test="admissionDate != null">
+			  and s.ADMISSION_DATE = #{admissionDate,jdbcType=DATE}
+			</if>
+			<if test="schoolYear != null">
+			  and s.SCHOOL_YEAR = #{schoolYear,jdbcType=DECIMAL}
+			</if>
+			<if test="gender != null">
+			  and s.GENDER = #{gender,jdbcType=VARCHAR}
+			</if>
+			<if test="dormitory != null">
+			  and s.DORMITORY_NUMBER = #{dormitory.dormitoryNumber,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectForLike" parameterType="Student" resultMap="student">
+		select 
+			s.ID as "id", 
+			s.NAME as "name", 
+			s.AGE as "age", 
+			s.PERSON_NUMBER as "personNumber", 
+			s.CLASS_NAME as "className", 
+			s.ADMISSION_DATE as "admissionDate", 
+			s.SCHOOL_YEAR as "schoolYear", 
+			s.GENDER as "gender", 
+			s.DORMITORY_NUMBER as "d_dormitoryNumber",
+			d.BUILDING_NUMBER as "d_buildingNumber", 
+			d.LAYER_NUMBER as "d_layerNumber", 
+			d.MONEY as "d_money", 
+			d.ELE_NUMBER as "d_eleNumber", 
+			d.WATER_NUMBER as "d_waterNumber"
+		from 
+			quxiqi.t_bs_student s left join 
+			quxiqi.t_bs_dormitory d
+			on s.dormitory_number = d.dormitory_Number
+		<where>
+			<if test="id != null">
+			  s.id like '%'||#{id}||'%'
+			</if>
+			<if test="dormitory !=null and dormitory.dormitoryNumber != null">
+			  and s.DORMITORY_NUMBER like '%'||#{dormitory.dormitoryNumber}||'%'
+			</if>
+		</where>
+		<if test="orderBy!=null">
+			order by ${orderBy}
+		</if>
+	</select>
+	
+	<insert id="insertList" parameterType="java.util.List">
+		insert all
+		<foreach collection="list" item="stu">
+			into quxiqi.t_bs_student
+			values(
+				#{stu.id},
+				#{stu.name},
+				#{stu.age},
+				#{stu.personNumber},
+				#{stu.className},
+				to_Date(#{stu.admissionDate},'yyyy-MM-dd hh24:mi:ss'),
+				#{stu.schoolYear},
+				#{stu.gender},
+				#{stu.dormitory.dormitoryNumber}
+			)
+		</foreach>
+		select '1' from dual 
+	</insert>
+</mapper>

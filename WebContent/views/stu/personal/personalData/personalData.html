@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|个人信息</title>
+		<!-- <script  src="/common/jQuery/jquery-3.1.1.min.js"></script> -->
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/stu/personal/personalData/personalData.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column" id="rightPage">
+				<div class="row clearfix">
+					<div class="col-md-12 col-sm-12 column">
+						<ul class="nav nav-tabs tablePage">
+							<li class="active">
+								 <a class="userPage" style="color:#555;" href="javaScript:void(0)">账号资料</a>
+							</li>
+							<li>
+								 <a class="stuPage" style="color:#555;" href="javaScript:void(0)">学生资料</a>
+							</li>
+							<li>
+								 <a class="dorPage" style="color:#555;" href="javaScript:void(0)">宿舍资料</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-md-12 col-sm-12 column">
+						<br/>
+						<div class="userMessagePage">
+							<table class="table table-hover panel panel-default">
+								<tbody>
+									<tr>
+										<td>用户名：</td>
+										<td class="userName">
+											<span class="display"></span>
+											<input class="modification form-control" name="userName" type="text" value="" disabled="disabled"/>
+										</td>
+									</tr>
+									<tr>
+										<td>手机号码：</td>
+										<td class="phoneNumber">
+											<span class="display"></span>
+											<input class="modification form-control" name="phoneNumber" type="text" value="" disabled="disabled"/>
+										</td>
+									</tr>
+									<tr>
+										<td>性别：</td>
+										<td class="gender">
+											<span class="display">男</span>
+											<div class="modification">
+												<label class="radio-inline">
+													<input type="radio" name="gender" value="0"/>女
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="gender" value="1"/>男
+												</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>用户年龄：</td>
+										<td class="age">
+											<span class="display"></span>
+											<input class="modification form-control" name="age" type="number" min="0" max="150" value=""/>
+										</td>
+									</tr>
+									<tr>
+										<td>创建时间：</td>
+										<td class="createDate">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" type="date" value="2016/11/11"/> -->
+											<span class="modification"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>邮箱：</td>
+										<td class="email">
+											<span class="display"></span>
+											<div class="input-group modification">
+												<input type="text" class="form-control" placeholder="邮箱前缀...">
+												<span class="input-group-addon">@</span>
+		           	 							<input type="text" class="form-control" placeholder="邮箱后缀...">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>学号：</td>
+										<td class="studentId">
+											<span class="display">尚未绑定</span>
+											<a class="btn modification saveUser">修改/绑定学生信息？</a>
+										</td>
+									</tr>
+									<tr>
+										<td>宿舍号：</td>
+										<td class="dormitoryNumber">
+											<span class="display">尚未绑定</span>
+											<a class="btn modification saveUser">修改/绑定宿舍信息？</a>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<a class="btn btn-link display" id="changeUserMessage">修改/补全信息</a>
+											<a class="btn btn-link modification" id="submitUserMessage">保存</a>
+											<a class="btn btn-link modification" id="goBackUserMessage">返回</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="stuMessagePage">
+							<table class="table table-hover panel panel-default">
+								<tbody>
+									<tr>
+										<td>学号：</td>
+										<td class="id">
+											<span class="display">尚未绑定</span>
+											<div class="form-group has-success">
+												<input class="modification form-control" name="id" type="text" value=""/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>身份证：</td>
+										<td class="personNumber">
+											<span class="display">尚未绑定</span>
+											<div class="form-group has-success">
+												<input class="modification form-control" name="personNumber" type="text" value=""/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>姓名：</td>
+										<td class="name">
+											<span class="display">尚未绑定</span>
+											<input class="modification form-control" name="name" type="text" value="" disabled="disabled"/>
+										</td>
+									</tr>
+									<tr>
+										<td>性别：</td>
+										<td class="gender">
+											<span class="display">尚未绑定</span>
+											<fieldset disabled>
+											<div class="modification">
+												<label class="radio-inline">
+													<input type="radio" name="stuGender" value="0"/>女
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="stuGender" value="1"/>男
+												</label>
+											</div>
+											</fieldset>
+										</td>
+									</tr>
+									<tr>
+										<td>年龄：</td>
+										<td class="age">
+											<span class="display">尚未绑定</span>
+											<input class="modification form-control" name="age" type="number" min="0" max="150" value="" disabled="disabled"/>
+										</td>
+									</tr>
+									<tr>
+										<td>班级信息：</td>
+										<td class="className">
+											<span class="display">尚未绑定</span>
+											<input class="modification form-control" name="className" type="text" value="" disabled="disabled"/>
+										</td>
+									</tr>
+									<tr>
+										<td>入学时间：</td>
+										<td class="admissionDate">
+											<span class="display">尚未绑定</span>
+											<!-- <input class="modification form-control" type="date" value="2016/11/11"/> -->
+											<span class="modification"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>在校时长：</td>
+										<td class="schoolYear">
+											<span class="display">尚未绑定</span>
+											<!-- <input class="modification form-control" type="date" value="2016/11/11"/> -->
+											<span class="modification"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>宿舍号：</td>
+										<td class="dormitoryNumber">
+											<span class="display">尚未绑定</span>
+											<!-- <a class="btn btn-link modification nobind" id="bindingDormitory"> 绑定宿舍信息？</a> -->
+											<span class="modification">尚未绑定</span>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<a class="btn btn-link display" id="changeStuMessage">修改/补全信息</a>
+											<a class="btn btn-link modification" id="submitStuMessage">保存</a>
+											<a class="btn btn-link modification" id="goBackStuMessage">返回</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="dorMessagePage">
+							<table class="table table-hover panel panel-default">
+								<tbody>
+									<tr>
+										<td>宿舍号：</td>
+										<td class="dormitoryNumber">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" name="dormitoryNumber" type="text" value="06#01#29" disabled="disabled"/> -->
+										</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>楼号：</td>
+										<td class="buildingNumber">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" name="buildingNumber" type="text" value="06" disabled="disabled"/> -->
+										</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>层数：</td>
+										<td class="layerNumber">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" name="layerNumber" type="text" value="01" disabled="disabled"/> -->
+										</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>剩余费用：</td>
+										<td class="money">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" name="money" type="number" min="0" max="150" value="0"/> -->
+										</td>
+										<td>
+											<a class="btn btn-link display" href="/stu/dormitory/water_ele">查看费用记录</a>
+										</td>
+									</tr>
+									<tr>
+										<td>电表读数：</td>
+										<td class="eleNumber">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" name="money" type="number" min="0" max="150" value="0"/> -->
+										</td>
+										<td>
+											<a class="btn btn-link display" href="/stu/dormitory/water_ele">查看用电情况</a>
+										</td>
+									</tr>
+									<tr>
+										<td>水表读数：</td>
+										<td class="waterNumber">
+											<span class="display"></span>
+											<!-- <input class="modification form-control" name="money" type="number" min="0" max="150" value="0"/> -->
+										</td>
+										<td>
+											<a class="btn btn-link display" href="/stu/dormitory/water_ele">查看用水情况</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					<!-- <div class="col-md-4 column">
+					</div>
+					<div class="col-md-4 column">
+					</div> -->
+				</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

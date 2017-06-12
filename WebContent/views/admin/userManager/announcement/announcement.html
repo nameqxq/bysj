@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|公告信息 </title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/admin/userManager/announcement/announcement.css" rel="stylesheet">
+		<script id="logPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td class="title showContext" data-info="{{>guid}}"><div><a title="{{>title}}">{{>title}}</a></div></td>
+					<td class="showContext"><div><a title="{{>context}}">{{>context}}</a></div></td>
+					<td class="showContext"><a title="createPerson">{{>createPerson}}</a></td>
+					<td class="showContext"><a title="createDate">{{>createDate}}</a></td>
+					<td class="{{>remark==null?'zf':'showContext'}}"><div><a title="{{>remark}}">{{>remark==null?'作废':remark}}</a></div></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="4">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column" id="rightPage">
+					<div class="row clearfix">
+						<div class="col-md-12 col-sm-12 column">
+							<ul class="nav nav-tabs tablePage">
+								<li id="addTab">
+									 <a style="color:#555;" href="javaScript:void(0)">发布公告</a>
+								</li>
+								<li id="logTab">
+									 <a style="color:#555;" href="javaScript:void(0)">公告管理</a>
+								</li>
+							</ul>
+						</div>
+					</div>	
+					<div class="row clearfix">
+						<div class="addPage" style="display:none">
+							<br>	
+							<div class="col-md-2 col-sm-2"></div>
+							<div class="col-md-8 col-sm-8 panel panel-default">
+								<br>	
+								<h3>发布公告</h3>	
+								<br>	
+								<div class="col-md-2 col-sm-2"></div>
+								<div class="col-md-8 col-sm-8" style="filter: alpha(opacity=100)">
+									<form enctype="multipart/form-data" method="post">
+										<div class="form-group">
+										    <label for="title">标题</label>
+										    <input type="text" class="form-control" name="title" placeholder="请输入标题...">
+										</div>
+										<div class="form-group">
+										    <label for="context">公告内容</label>
+										   	<textarea class="form-control" rows="15"  name="context" placeholder="请输入公告内容..."></textarea>
+										</div>
+										<div class="form-group">
+											<input class="btn btn-default pull-right" type="button" value="提交"/>
+										</div>
+									</form>
+								</div>					
+							</div>
+						</div>
+						<!-- addPage end -->
+						<div class="logPage" style="display:none">
+							<br>
+							<div class="panel panel-default">
+								<br>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<form class="form-inline" role="form">
+										<div class="form-group " style="width: 25%">
+										    <label  for="title ">标题：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="text" placeholder="标题...">
+										</div>
+										<div class="form-group" style="width: 25%">
+										    <label  for="context">内容：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="context" placeholder="内容..">
+										</div>
+										<div class="form-group" style="width: 25%">
+										    <label  for="createPerson">发布人：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="createPerson" placeholder="admin..">
+										</div>
+										<div class="btn search btn-default">search</div>
+									</form>
+								</div>
+								<br>
+							</div>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												标题
+											</th>
+											<th>
+												内容
+											</th>
+											<th>
+												发布人
+											</th>
+											<th>
+												发布时间
+											</th>
+											<th>
+												作废(原因)
+											</th>
+										</tr>
+									</thead>
+									<tbody class="dormitoryPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>
+						</div>		
+						<!-- logPage end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

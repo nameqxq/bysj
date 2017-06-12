@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.quxiqi.bysj.dao.mapper.UserMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="com.quxiqi.bysj.dao.mapper.UserMapper">
+	<resultMap type="User" id="user">
+		<id property="userName" column="userName"/>
+		<result property="password" column="password"/>
+		<result property="phoneNumber" column="phoneNumber"/>
+		<result property="age" column="age"/>
+		<result property="gender" column="gender"/>
+		<result property="email" column="email"/>
+		<result property="usertypes" column="usertypes"/>
+		<result property="createDate" column="createDate"/>
+		<association property="student" javaType="Student">
+			<id property="id" column="s_id"/>
+			<result property="name" column="s_name"/>
+			<result property="age" column="s_age"/>
+			<result property="personNumber" column="s_personNumber"/>
+			<result property="admissionDate" column="s_admissionDate"/>
+			<result property="className" column="s_className"/>
+			<result property="schoolYear" column="s_schoolYear"/>
+			<result property="gender" column="s_gender"/>
+			<association property="dormitory" resultMap="dormitory">
+			</association>
+		</association> 
+		<association property="dormitory" resultMap="dormitory">
+		</association> 
+	</resultMap>
+	
+	<resultMap type="Dormitory" id="dormitory">
+		<id property="dormitoryNumber" column="d_dormitoryNumber"/>
+		<result property="buildingNumber" column="d_buildingNumber"/>
+		<result property="layerNumber" column="d_layerNumber"/>
+		<result property="money" column="d_money"/>
+		<result property="eleNumber" column="d_eleNumber"/>
+		<result property="waterNumber" column="d_waterNumber"/>
+	</resultMap>
+	<!-- 期望返回一条数据 -->
+	<select id="select" parameterType="User" resultMap="user">
+		select 
+			u.USER_NAME	as "userName",  <!-- 用户名 -->
+			u.PASSWORD	as "password",  <!-- 密码 -->
+			u.PHONE_NUMBER	as "phoneNumber",  <!-- 手机号 -->
+			u.STUDENT_ID	as "studentId",  <!-- 学号 -->
+			u.AGE	as "age",  <!-- 年龄 -->
+			u.GENDER	as "gender",  <!-- 性别：0为女，1为男 -->
+			u.EMAIL	as "email",  <!-- 邮箱地址 -->
+			u.USERTYPES	as "usertypes",  <!-- 用户类型：用，分隔 -->
+			u.CREATE_DATE	as "createDate" ,<!-- 创建时间 -->
+			s.ID	as "s_id",  <!-- 学号 -->
+			s.NAME	as "s_name",  <!-- 名字 -->
+			s.AGE	as "s_age",  <!-- 年龄 -->
+			s.PERSON_NUMBER	as "s_personNumber",  <!-- 身份证 -->
+			s.CLASS_NAME	as "s_className",  <!-- 班级信息 -->
+			s.ADMISSION_DATE	as "s_admissionDate",  <!-- 入学日期 -->
+			s.SCHOOL_YEAR	as "s_schoolYear",  <!-- 在校时长（几年制） -->
+			s.GENDER	as "s_gender",  <!-- 性别：0为女，1为男 -->
+			s.DORMITORY_NUMBER	as "s_dormitoryNumber" ,<!-- 宿舍号 -->
+			d.BUILDING_NUMBER	as "d_buildingNumber",  <!-- 楼号 -->
+			d.LAYER_NUMBER	as "d_layerNumber",  <!-- 层数 -->
+			d.DORMITORY_NUMBER	as "d_dormitoryNumber",  <!-- 宿舍号：06(楼号)#01(层数)#29 -->
+			d.MONEY as "d_money",
+			d.ELE_NUMBER as "d_eleNumber",
+			d.WATER_NUMBER as "d_waterNumber"
+			from quxiqi.t_bs_user u
+				left join quxiqi.t_bs_student s 
+				on u.student_id = s.id,
+				quxiqi.t_bs_user u1 left join quxiqi.t_bs_dormitory d 
+				on u1.dormitory_number = d.dormitory_number
+			<where>
+			  		u.user_name = u1.user_name
+				<if test="userName != null">
+					and u.user_name = #{userName}
+				</if>
+				<if test="password != null">
+					and u.password = #{password}
+				</if>
+				<if test="phoneNumber != null">
+					and u.phone_number = #{phoneNumber}
+				</if>
+				<if test="student != null">
+					<if test="student.id != null">
+						and u.student_id = #{student.id} 
+					</if>
+				</if>
+				<if test="dormitory != null">
+					<if test="dormitory.dormitoryNumber != null">
+						and u.dormitory_number = #{dormitory.dormitoryNumber} 
+					</if>
+				</if>
+				<!-- <if test="studentId != null">
+					and u.student_id = #{studentId}
+				</if> 
+				<if test="studentName != null">
+					and s.student_name = #{studentName}
+				</if>
+				<if test="buildingNumber != null">
+					and u.building_number = #{buildingNumber}
+				</if>
+				<if test="layerNumber != null">
+					and u.layer_number = #{layerNumber}
+				</if>
+				<if test="dormitoryNumber != null">
+					and u.dormitory_number = #{dormitoryNumber}
+				</if>
+				-->
+			</where>
+	</select>
+	
+	<select id="selectForLike" parameterType="User" resultMap="user">
+		select 
+			u.USER_NAME	as "userName",  <!-- 用户名 -->
+			u.PASSWORD	as "password",  <!-- 密码 -->
+			u.PHONE_NUMBER	as "phoneNumber",  <!-- 手机号 -->
+			u.STUDENT_ID	as "studentId",  <!-- 学号 -->
+			u.AGE	as "age",  <!-- 年龄 -->
+			u.GENDER	as "gender",  <!-- 性别：0为女，1为男 -->
+			u.EMAIL	as "email",  <!-- 邮箱地址 -->
+			u.USERTYPES	as "usertypes",  <!-- 用户类型：用，分隔 -->
+			u.CREATE_DATE	as "createDate" ,<!-- 创建时间 -->
+			s.ID	as "s_id",  <!-- 学号 -->
+			s.NAME	as "s_name",  <!-- 名字 -->
+			s.AGE	as "s_age",  <!-- 年龄 -->
+			s.PERSON_NUMBER	as "s_personNumber",  <!-- 身份证 -->
+			s.CLASS_NAME	as "s_className",  <!-- 班级信息 -->
+			s.ADMISSION_DATE	as "s_admissionDate",  <!-- 入学日期 -->
+			s.SCHOOL_YEAR	as "s_schoolYear",  <!-- 在校时长（几年制） -->
+			s.GENDER	as "s_gender",  <!-- 性别：0为女，1为男 -->
+			s.DORMITORY_NUMBER	as "s_dormitoryNumber" ,<!-- 宿舍号 -->
+			d.BUILDING_NUMBER	as "d_buildingNumber",  <!-- 楼号 -->
+			d.LAYER_NUMBER	as "d_layerNumber",  <!-- 层数 -->
+			d.DORMITORY_NUMBER	as "d_dormitoryNumber",  <!-- 宿舍号：06(楼号)#01(层数)#29 -->
+			d.MONEY as "d_money",
+			d.ELE_NUMBER as "d_eleNumber",
+			d.WATER_NUMBER as "d_waterNumber"
+			from quxiqi.t_bs_user u
+				left join quxiqi.t_bs_student s 
+				on u.student_id = s.id,
+				quxiqi.t_bs_user u1 left join quxiqi.t_bs_dormitory d 
+				on u1.dormitory_number = d.dormitory_number
+			<where>
+			  		u.user_name = u1.user_name
+				<if test="userName != null">
+					and u.user_name like '%'||#{userName}||'%'
+				</if>
+				<if test="student !=null and student.id != null">
+					and s.id like '%'||#{student.id}||'%'
+				</if>
+				<if test="dormitory != null and dormitory.dormitoryNumber != null">
+					and d.dormitory_Number like '%'||#{dormitory.dormitoryNumber}||'%'
+				</if>
+			</where>
+			<if test="orderBy!=null">
+				order by u.${orderBy}
+			</if>
+	</select>
+	
+	
+	<select id="selectToDor" parameterType="Dormitory" resultMap="user">
+		select
+			USER_NAME	as "userName",  <!-- 用户名 -->
+			PHONE_NUMBER	as "phoneNumber",  <!-- 手机号 -->
+			STUDENT_ID	as "s_id",  <!-- 学号 -->
+			CREATE_DATE	as "createDate" <!-- 创建时间 -->
+		from 
+			quxiqi.t_bs_user	
+		where
+			dormitory_number = #{dormitoryNumber}
+		order by
+			#{orderBy}	
+	</select>
+	
+	<select id="count" parameterType="User" resultType="int">
+		SELECT COUNT(*) FROM QUXIQI.T_BS_USER WHERE 1=1
+	</select>
+	
+	<insert id="insert" parameterType="User">
+		INSERT INTO QUXIQI.T_BS_USER( 
+			PASSWORD,  <!-- 密码 -->
+			PHONE_NUMBER,  <!-- 手机号 -->
+			<if test="student !=null">
+				<if test="student.studentId!=null">
+					STUDENT_ID,  <!-- 学号 -->
+				</if>
+			</if>
+			<if test="age!=null">
+				AGE,  <!-- 年龄 -->
+			</if>
+			GENDER,  <!-- 性别：0为女，1为男 -->
+			<if test="email!=null">
+				EMAIL,  <!-- 邮箱地址 -->
+			</if>
+			<if test="usertypes!=null">
+				USERTYPES,  <!-- 用户类型：用，分隔 -->
+			</if>
+			USER_NAME  <!-- 用户名 -->
+								)		 
+		VALUES (
+			#{password}, 
+			#{phoneNumber}, 
+			<if test="student !=null">
+				<if test="student.studentId!=null">
+					#{student.studentId}, 
+				</if>
+			</if>
+			<if test="age!=null">
+				#{age},
+			</if> 
+			#{gender}, 
+			<if test="email!=null">
+				#{email}, 
+			</if>
+			<if test="usertypes!=null">
+				#{usertypes},
+			</if>
+			#{userName}				
+			)
+	</insert>
+	
+	<update id="update" parameterType="User">
+		update quxiqi.t_bs_user
+		<set>
+			<if test="password!=null">
+				PASSWORD = #{password},  <!-- 用户名 -->
+			</if>
+			<if test="phoneNumber!=null">
+				PHONE_NUMBER = #{phoneNumber},  <!-- 手机号 -->
+			</if>
+			<if test="student!=null">
+				STUDENT_ID = #{student.id},  <!-- 学号 -->
+			</if>
+			<if test="dormitory!=null">
+				DORMITORY_NUMBER = #{dormitory.dormitoryNumber},  <!-- 学号 -->
+			</if>
+			<if test="age!=null">
+				AGE = #{age},  <!-- 年龄 -->
+			</if>
+			<if test="gender!=null">
+				GENDER = #{gender},  <!-- 性别：0为女，1为男 -->
+			</if>
+			<if test="email!=null">
+				EMAIL = #{email},  <!-- 邮箱地址 -->
+			</if>
+			<if test="usertypes!=null">
+				USERTYPES = #{usertypes},  
+			</if>
+		</set>
+			where 
+				USER_NAME = #{userName}
+	</update>
+	
+	<update id="binding" parameterType="User">
+		update 
+			quxiqi.t_bs_user 
+		set 
+			student_id = #{student.id},
+			dormitory_number = (
+				select 
+					d.dormitory_number 
+				from 
+					quxiqi.t_bs_dormitory d,
+					quxiqi.t_bs_student s
+				where 
+				    s.id = #{student.id}
+				    and 
+				    s.dormitory_number = d.dormitory_number
+			)
+		where user_name = #{userName}	
+	</update>
+	
+	
+	
+	<select id="selectForSendMsg" parameterType="Dormitory" resultMap="user">
+		select 
+			u.USER_NAME	as "userName",  <!-- 用户名 -->
+			u.PASSWORD	as "password",  <!-- 密码 -->
+			u.PHONE_NUMBER	as "phoneNumber",  <!-- 手机号 -->
+			u.STUDENT_ID	as "studentId",  <!-- 学号 -->
+			u.AGE	as "age",  <!-- 年龄 -->
+			u.GENDER	as "gender",  <!-- 性别：0为女，1为男 -->
+			u.EMAIL	as "email",  <!-- 邮箱地址 -->
+			u.USERTYPES	as "usertypes",  <!-- 用户类型：用，分隔 -->
+			u.CREATE_DATE	as "createDate" ,<!-- 创建时间 -->
+			d.BUILDING_NUMBER	as "d_buildingNumber",  <!-- 楼号 -->
+			d.LAYER_NUMBER	as "d_layerNumber",  <!-- 层数 -->
+			d.DORMITORY_NUMBER	as "d_dormitoryNumber",  <!-- 宿舍号：06(楼号)#01(层数)#29 -->
+			d.MONEY as "d_money",
+			d.ELE_NUMBER as "d_eleNumber",
+			d.WATER_NUMBER as "d_waterNumber"
+			from quxiqi.t_bs_user u,
+				 quxiqi.t_bs_dormitory d 
+			where 
+				u.DORMITORY_NUMBER = d.DORMITORY_NUMBER
+				and
+				d.MONEY &lt; #{money} 
+	</select>
+</mapper>

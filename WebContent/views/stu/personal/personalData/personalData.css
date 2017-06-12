@@ -1,0 +1,19 @@
+tr{
+	text-align:center;
+	vertical-align:middle;
+}
+
+input{
+	text-align:center;
+}
+
+.stuMessagePage .form-group{
+	margin-bottom : 0px;
+}
+
+.stuMessagePage,.dorMessagePage{
+	display:none;
+}
+.modification{
+	display:none;
+}

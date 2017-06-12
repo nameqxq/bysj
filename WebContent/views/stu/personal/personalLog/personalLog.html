@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|日志记录</title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/stu/personal/personalLog/personalLog.css" rel="stylesheet">
+</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				
+				<div class="col-md-10 col-sm-10 column" id="rightPage">
+					<div class="row clearfix">
+						<div class="col-md-12 col-sm-12 column">
+							<ul class="nav nav-tabs tablePage">
+								<li id="userLogTab">
+									 <a style="color:#555;" href="javaScript:void(0)">登录日志</a>
+								</li>
+								<li id="safeTab">
+									 <a style="color:#555;" href="javaScript:void(0)">安全设置</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<br/>
+						<div id="userLogPage" style="display: none">
+							<div class="col-md-8 col-sm-7 column">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												用户名
+											</th>
+											<th>
+												上线时间
+											</th>
+											<th>
+												在线时长（秒）
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div class="paging">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-5 column ">
+								<br/>
+								<br/>
+								<div class="panel panel-default">
+									<br/>
+									<form class="form-horizontal" role="form" data-type="details">
+										<fieldset disabled="disabled">
+										<div class="form-group">
+											<label for="loginDate" class="col-sm-3 col-md-4 control-label">上线时间:</label>
+											<div class="col-sm-8 col-md-7">
+												<input type="text" class="form-control" data-type="loginDate" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="logoutDate" class="col-sm-3 col-md-4 control-label">下线时间:</label>
+											<div class="col-sm-8 col-md-7">
+												<input type="text" class="form-control" data-type="logoutDate" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="onlineTime" class="col-sm-3 col-md-4 control-label">在线时长:</label>
+											<div class="col-sm-8 col-md-7">
+												<input type="text" class="form-control" data-type="onlineTime" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="loginIp" class="col-sm-3 col-md-4 control-label">登录IP:</label>
+											<div class="col-sm-8 col-md-7">
+												<input type="text" class="form-control" data-type="loginIp" />
+											</div>
+										</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- userLogPage end -->
+						<div id="safePage" style="display: none">
+							<div class="col-md-2 col-sm-2"></div>
+							<div class="col-md-8 col-sm-8 panel panel-default change">
+								<br>
+								<!-- <div class="col-md-2"></div>
+								<div class="col-md-8">
+									<div class="btn">修改密码</div>
+									<div class="btn">改绑手机</div>
+								</div> -->
+								<form class="changePasswordForm" >
+									<div class="form-group">
+									    <label for="name">原密码</label>
+									    <a class="changePhoneNumber pull-right">改绑手机？</a>
+									    <input type="password" class="form-control" name="oldPassword" placeholder="请输入原密码">
+									    
+									</div>
+									<div class="form-group">
+									    <label for="name">新密码</label>
+									    <input type="password" class="form-control" name="password" placeholder="请输入新密码">
+									</div>
+									<div class="form-group">
+									    <label for="name">再次输入</label>
+									    <input type="password" class="form-control" name="againPassword" placeholder="请再次输入新密码">
+									</div>
+									<input class = "btn btn-defalut pull-right" type="button" value="提交"/>
+									<br/>
+									<br/>
+								</form>
+								
+								<form class="changePhoneNumberForm" style="display: none">
+									<div class="form-group">
+									    <label for="name">原号码</label>
+									    <a class="changePhoneNumber pull-right">修改密码？</a>
+									    <input type="text" class="form-control" name="oldPhoneNumber" placeholder="请输入原号码...">
+									    
+									</div>
+									<div class="form-group">
+										    <label for="name">新号码</label>
+										    <input type="text" class="form-control" name="phoneNumber" placeholder="请输入新号码...">
+									</div>
+									<div class="row">
+										<div class="form-group col-md-2 col-sm-4">
+										 	<input type="button" class="btn sendCode" value="发送验证码"/>
+										</div>
+										<div class="form-group col-md-6 col-sm-6">
+										 	<input type="text" class="form-control" name="code" placeholder="验证码">
+										</div>
+									</div>
+									<input class = "btn btn-defalut pull-right submitChangePhone" type="button" value="提交"/>
+									<br/>
+									<br/>
+								</form>
+							</div>
+						</div>
+						<!-- safePage end -->
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>

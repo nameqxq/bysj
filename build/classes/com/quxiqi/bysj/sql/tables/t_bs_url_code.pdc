@@ -1,0 +1,41 @@
+-- Create table
+create table T_BS_URL_CODE
+(
+  url         VARCHAR2(500) not null,
+  code        VARCHAR2(8) not null,
+  create_date DATE default sysdate not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 1
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_URL_CODE.url
+  is 'url路径';
+comment on column T_BS_URL_CODE.code
+  is '代码';
+comment on column T_BS_URL_CODE.create_date
+  is '创建时间';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_URL_CODE
+  add constraint T_BS_URL_CODE_URLCODE_PK primary key (URL, CODE)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

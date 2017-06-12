@@ -1,0 +1,44 @@
+-- Create table
+create table T_BS_ELE_PRICE
+(
+  year        VARCHAR2(4) not null,
+  month       VARCHAR2(2) not null,
+  ele_price   NUMBER(18,6) not null,
+  water_price NUMBER(18,6) not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 1
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_ELE_PRICE.year
+  is '时间：年份';
+comment on column T_BS_ELE_PRICE.month
+  is '时间：月份';
+comment on column T_BS_ELE_PRICE.ele_price
+  is '电费价格（*元/度）';
+comment on column T_BS_ELE_PRICE.water_price
+  is '水费价格（*元/吨）';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_ELE_PRICE
+  add constraint T_BS_ELE_PRICE_ELE_WATER_PK primary key (YEAR, MONTH)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

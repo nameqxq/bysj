@@ -1,0 +1,62 @@
+-- Create table
+create table T_BS_ELE_LOG
+(
+  dormitory_number VARCHAR2(10) not null,
+  building_number  VARCHAR2(2) not null,
+  layer_number     VARCHAR2(2) not null,
+  guid             VARCHAR2(32) default sys_guid() not null,
+  pre_guid         VARCHAR2(32),
+  year             VARCHAR2(4) not null,
+  month            VARCHAR2(2) not null,
+  entering_time    DATE default sysdate not null,
+  ele_number       NUMBER(16,8) not null,
+  entering_person  VARCHAR2(16) not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_ELE_LOG.dormitory_number
+  is '宿舍号：06(楼号)#01(层数)#29';
+comment on column T_BS_ELE_LOG.building_number
+  is '楼号';
+comment on column T_BS_ELE_LOG.layer_number
+  is '层号';
+comment on column T_BS_ELE_LOG.guid
+  is '流水号，id';
+comment on column T_BS_ELE_LOG.pre_guid
+  is '上一次记录电表信息的流水号';
+comment on column T_BS_ELE_LOG.year
+  is '时间-年份';
+comment on column T_BS_ELE_LOG.month
+  is '时间-月份';
+comment on column T_BS_ELE_LOG.entering_time
+  is '录入时间';
+comment on column T_BS_ELE_LOG.ele_number
+  is '电表数';
+comment on column T_BS_ELE_LOG.entering_person
+  is '录入人';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_ELE_LOG
+  add constraint T_BS_ELE_LOG_GUID_PK primary key (GUID)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

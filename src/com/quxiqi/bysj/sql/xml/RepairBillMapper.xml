@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.RepairBillMapper">
+	<resultMap id="repairBill" type="RepairBill">
+	    <id column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+	    <result column="DORMITORY_NUMBER" jdbcType="VARCHAR" property="dormitoryNumber" />
+	    <result column="PERSON_NAME" jdbcType="VARCHAR" property="personName" />
+	    <result column="PHONE_NUMBER" jdbcType="VARCHAR" property="phoneNumber" />
+	    <result column="CONTEXT" jdbcType="VARCHAR" property="context" />
+	    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+	    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+	    <result column="CREATE_DATE"  property="createDate" />
+	    <result column="REFUSE_DATE"  property="refuseDate" />
+	    <result column="REPAIR_DATE"  property="repairDate" />
+	    <result column="REAL_REPAIR_DATE"  property="realRepairDate" />
+	    <result column="MODIFI_PERSON"  property="modifiPerson" />
+	    <result column="MODIFI_DATE"  property="modifiDate" />
+	    <result column="IMAGE1" jdbcType="VARCHAR" property="image1" />
+	    <result column="IMAGE2" jdbcType="VARCHAR" property="image2" />
+	    <result column="IMAGE3" jdbcType="VARCHAR" property="image3" />
+	    <result column="HANDLER_PERSON" jdbcType="VARCHAR" property="handlerPerson" />
+	    <result column="HANDLER_PHONE" jdbcType="VARCHAR" property="handlerPhone" />
+	    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	<select id="select" parameterType="RepairBill" resultMap="repairBill">
+		select
+			*
+		from 
+			quxiqi.t_bs_repair_bill
+		<where>
+			  <if test="guid != null">
+		        GUID = #{guid}
+		      </if>
+		      <if test="dormitoryNumber != null">
+		        and DORMITORY_NUMBER = #{dormitoryNumber}
+		      </if>
+		      <if test="title != null">
+		       and TITLE = #{title}
+		      </if>
+		      <if test="personName != null">
+		       and PERSON_NAME = #{personName}
+		      </if>
+		      <if test="phoneNumber != null">
+		       and PHONE_NUMBER = #{phoneNumber}
+		      </if>
+		      <if test="context != null">
+		       and CONTEXT = #{context}
+		      </if>
+		      <if test="status != null">
+		       and STATUS = #{status}
+		      </if>
+		      <if test="userName != null">
+		       and USER_NAME = #{userName}
+		      </if>
+		      <if test="createDate != null">
+		       and CREATE_DATE = #{createDate}
+		      </if>
+		      <if test="repairDate != null">
+		       and REPAIR_DATE = #{repairDate}
+		      </if>
+		      <if test="realRepairDate != null">
+		       and REAL_REPAIR_DATE = #{realRepairDate}
+		      </if>
+		      <if test="image1 != null">
+		       and IMAGE1 = #{image1}
+		      </if>
+		      <if test="image2 != null">
+		       and IMAGE2 = #{image2}
+		      </if>
+		      <if test="image3 != null">
+		       and IMAGE3 = #{image3}
+		      </if>
+		      <if test="handlerPerson != null">
+		       and HANDLER_PERSON = #{handlerPerson}
+		      </if>
+		      <if test="handlerPhone != null">
+		       and HANDLER_PHONE = #{handlerPhone}
+		      </if>
+		      <if test="remark != null">
+		       and REMARK = #{remark}
+		      </if>
+		</where>
+			<if test="orderBy !=null">
+				order by ${orderBy}
+			</if>	
+	</select>
+	
+	<select id="selectByGuid" parameterType="RepairBill" resultMap="repairBill">
+		select
+			*
+		from 
+			quxiqi.t_bs_repair_bill
+		where     
+			GUID = #{guid}
+	</select>
+	
+	<select id="selectStatusIn" parameterType="PageMap" resultMap="repairBill">
+		select
+			*
+		from 
+			quxiqi.t_bs_repair_bill
+		<where>
+			  <if test="guid != null">
+		        GUID = #{guid}
+		      </if>
+		      <if test="title != null">
+		       and TITLE = #{title}
+		      </if>
+		      <if test="personName != null">
+		       and PERSON_NAME = #{personName}
+		      </if>
+		      <if test="phoneNumber != null">
+		       and PHONE_NUMBER = #{phoneNumber}
+		      </if>
+		      <if test="context != null">
+		       and CONTEXT = #{context}
+		      </if>
+		      <if test="status != null">
+		       and STATUS in 
+       		  <foreach collection="status" item="s" open="(" close=")" separator="," >
+       				#{s}
+       		  </foreach>
+		      </if>
+		      <if test="userName != null">
+		       and USER_NAME = #{userName}
+		      </if>
+		      <if test="createDate != null">
+		       and CREATE_DATE = #{createDate}
+		      </if>
+		      <if test="repairDate != null">
+		       and REPAIR_DATE = #{repairDate}
+		      </if>
+		      <if test="realRepairDate != null">
+		       and REAL_REPAIR_DATE = #{realRepairDate}
+		      </if>
+		      <if test="image1 != null">
+		       and IMAGE1 = #{image1}
+		      </if>
+		      <if test="image2 != null">
+		       and IMAGE2 = #{image2}
+		      </if>
+		      <if test="image3 != null">
+		       and IMAGE3 = #{image3}
+		      </if>
+		      <if test="handlerPerson != null">
+		       and HANDLER_PERSON = #{handlerPerson}
+		      </if>
+		      <if test="handlerPhone != null">
+		       and HANDLER_PHONE = #{handlerPhone}
+		      </if>
+		      <if test="remark != null">
+		       and REMARK = #{remark}
+		      </if>
+		</where>
+			<if test="orderBy !=null">
+				order by ${orderBy}
+			</if>	
+	</select>
+	
+	<insert id="insert" parameterType="RepairBill">
+		insert into QUXIQI.T_BS_REPAIR_BILL
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="guid != null">
+	        GUID,
+	      </if>
+	      <if test="title != null">
+	        TITLE,
+	      </if>
+	      <if test="dormitoryNumber != null">
+	        DORMITORY_NUMBER,
+	      </if>
+	      <if test="personName != null">
+	        PERSON_NAME,
+	      </if>
+	      <if test="phoneNumber != null">
+	        PHONE_NUMBER,
+	      </if>
+	      <if test="context != null">
+	        CONTEXT,
+	      </if>
+	      <if test="status != null">
+	        STATUS,
+	      </if>
+	      <if test="userName != null">
+	        USER_NAME,
+	      </if>
+	      <if test="createDate != null">
+	        CREATE_DATE,
+	      </if>
+	      <if test="repairDate != null">
+	        REPAIR_DATE,
+	      </if>
+	      <if test="realRepairDate != null">
+	        REAL_REPAIR_DATE,
+	      </if>
+	      <if test="modifiPerson != null">
+	        MODIFI_PERSON,
+	      </if>
+	      <if test="image1 != null">
+	        IMAGE1,
+	      </if>
+	      <if test="image2 != null">
+	        IMAGE2,
+	      </if>
+	      <if test="image3 != null">
+	        IMAGE3,
+	      </if>
+	      <if test="handlerPerson != null">
+	        HANDLER_PERSON,
+	      </if>
+	      <if test="handlerPhone != null">
+	        HANDLER_PHONE,
+	      </if>
+	      <if test="remark != null">
+	        REMARK,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="guid != null">
+	        #{guid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="title != null">
+	        #{title,jdbcType=VARCHAR},
+	      </if>
+	      <if test="dormitoryNumber != null">
+	        #{dormitoryNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="personName != null">
+	        #{personName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="phoneNumber != null">
+	        #{phoneNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="context != null">
+	        #{context,jdbcType=VARCHAR},
+	      </if>
+	      <if test="status != null">
+	        #{status,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userName != null">
+	        #{userName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createDate != null">
+	        #{createDate,jdbcType=DATE},
+	      </if>
+	      <if test="repairDate != null">
+	        #{repairDate,jdbcType=DATE},
+	      </if>
+	      <if test="realRepairDate != null">
+	        #{realRepairDate,jdbcType=DATE},
+	      </if>
+	      <if test="modifiPerson != null">
+	      	#{modifiPerson},
+	      </if>
+	      <if test="image1 != null">
+	        #{image1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="image2 != null">
+	        #{image2,jdbcType=VARCHAR},
+	      </if>
+	      <if test="image3 != null">
+	        #{image3,jdbcType=VARCHAR},
+	      </if>
+	      <if test="handlerPerson != null">
+	        #{handlerPerson,jdbcType=VARCHAR},
+	      </if>
+	      <if test="handlerPhone != null">
+	        #{handlerPhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remark != null">
+	        #{remark,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+	
+	<update id="update" parameterType="RepairBill">
+		update QUXIQI.T_BS_REPAIR_BILL
+	    <set>
+	      <if test="guid != null">
+	        GUID = #{guid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="title != null">
+	        TITLE = #{title,jdbcType=VARCHAR},
+	      </if>
+	      <if test="personName != null">
+	        PERSON_NAME = #{personName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="phoneNumber != null">
+	        PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="context != null">
+	        CONTEXT = #{context,jdbcType=VARCHAR},
+	      </if>
+	      <if test="status != null">
+	        STATUS = #{status,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userName != null">
+	        USER_NAME = #{userName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createDate != null">
+	        CREATE_DATE = #{createDate,jdbcType=DATE},
+	      </if>
+	      <if test="refuseDate != null">
+	        REFUSE_DATE = sysDate,
+	      </if>
+	      <if test="repairDate != null">
+	        REPAIR_DATE = to_Date(#{repairDate},'yyyy-MM-dd'),
+	      </if>
+	      <if test="realRepairDate != null">
+	        REAL_REPAIR_DATE = to_Date(#{realRepairDate},'yyyy-MM-dd'),
+	      </if>
+	      <if test="modifiPerson != null">
+	      	MODIFI_PERSON = #{modifiPerson},
+	      </if>
+	      <if test="image1 != null">
+	        IMAGE1 = #{image1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="image2 != null">
+	        IMAGE2 = #{image2,jdbcType=VARCHAR},
+	      </if>
+	      <if test="image3 != null">
+	        IMAGE3 = #{image3,jdbcType=VARCHAR},
+	      </if>
+	      <if test="handlerPerson != null">
+	        HANDLER_PERSON = #{handlerPerson,jdbcType=VARCHAR},
+	      </if>
+	      <if test="handlerPhone != null">
+	        HANDLER_PHONE = #{handlerPhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remark != null">
+	        REMARK = #{remark,jdbcType=VARCHAR},
+	      </if>
+	      	MODIFI_DATE = sysDate
+	    </set>
+		where 
+			GUID = #{guid}
+	</update>
+	
+</mapper>

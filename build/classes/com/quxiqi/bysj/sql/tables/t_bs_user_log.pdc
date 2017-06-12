@@ -1,0 +1,56 @@
+-- Create table
+create table T_BS_USER_LOG
+(
+  user_name   VARCHAR2(20) not null,
+  online_time NUMBER,
+  login_date  DATE default sysdate not null,
+  logout_date DATE,
+  login_ip    VARCHAR2(20),
+  guid        VARCHAR2(32) default sys_guid() not null,
+  pre_guid    VARCHAR2(32),
+  online_flag VARCHAR2(1) default '1' not null
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_USER_LOG.user_name
+  is '用户名';
+comment on column T_BS_USER_LOG.online_time
+  is '在线时长';
+comment on column T_BS_USER_LOG.login_date
+  is '登录时间';
+comment on column T_BS_USER_LOG.logout_date
+  is '下线时间';
+comment on column T_BS_USER_LOG.login_ip
+  is '客户端IP地址';
+comment on column T_BS_USER_LOG.guid
+  is '流水号，id，主键';
+comment on column T_BS_USER_LOG.pre_guid
+  is '前一id';
+comment on column T_BS_USER_LOG.online_flag
+  is '是否在线标记，0为不在线，1为在线。默认为1';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_USER_LOG
+  add constraint T_BS_USER_LOG_GUID_PK primary key (GUID)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

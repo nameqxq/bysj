@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.DormitoryMapper">
+	<resultMap id="dormitory" type="Dormitory">
+    <id column="DORMITORY_NUMBER" jdbcType="VARCHAR" property="dormitoryNumber" />
+    <result column="BUILDING_NUMBER" jdbcType="VARCHAR" property="buildingNumber" />
+    <result column="LAYER_NUMBER" jdbcType="VARCHAR" property="layerNumber" />
+    <result column="MONEY" jdbcType="DECIMAL" property="money" />
+    <result column="ELE_NUMBER" jdbcType="DECIMAL" property="eleNumber" />
+    <result column="WATER_NUMBER" jdbcType="DECIMAL" property="waterNumber" />
+  </resultMap>
+  
+  <select id="select" parameterType="Dormitory" resultMap="dormitory">
+  		select 
+  			*
+  		from 
+  			quxiqi.t_bs_dormitory
+  		<where>
+			<if test="dormitoryNumber != null">
+			  DORMITORY_NUMBER = #{dormitoryNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="buildingNumber != null">
+			  and BUILDING_NUMBER = #{buildingNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="layerNumber != null">
+			  and LAYER_NUMBER = #{layerNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="money != null">
+			  and MONEY = #{money,jdbcType=DECIMAL}
+			</if>
+			<if test="eleNumber != null">
+			  and ELE_NUMBER = #{eleNumber,jdbcType=DECIMAL}
+			</if>
+			<if test="waterNumber != null">
+			  and WATER_NUMBER = #{waterNumber,jdbcType=DECIMAL}
+			</if>
+  		</where>		
+  </select>
+  
+  
+  <select id="selectOne" parameterType="Dormitory" resultMap="dormitory">
+  		select 
+  			*
+  		from 
+  			quxiqi.t_bs_dormitory
+  		<where>
+			<if test="dormitoryNumber != null">
+			  DORMITORY_NUMBER = #{dormitoryNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="buildingNumber != null">
+			  and BUILDING_NUMBER = #{buildingNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="layerNumber != null">
+			  and LAYER_NUMBER = #{layerNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="money != null">
+			  and MONEY = #{money,jdbcType=DECIMAL}
+			</if>
+			<if test="eleNumber != null">
+			  and ELE_NUMBER = #{eleNumber,jdbcType=DECIMAL}
+			</if>
+			<if test="waterNumber != null">
+			  and WATER_NUMBER = #{waterNumber,jdbcType=DECIMAL}
+			</if>
+  		</where>		
+  </select>
+  
+  <update id="update" parameterType="Dormitory">
+  	 update QUXIQI.T_BS_DORMITORY
+    <set>
+      <if test="layerNumber != null">
+        LAYER_NUMBER = #{layerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="eleNumber != null">
+        ELE_NUMBER = #{eleNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="waterNumber != null">
+        WATER_NUMBER = #{waterNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DORMITORY_NUMBER = #{dormitoryNumber,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateList" parameterType="java.util.List">
+  	 <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+  	 	update QUXIQI.T_BS_DORMITORY
+  	 	<set>
+	      <if test="item.layerNumber != null">
+	        LAYER_NUMBER = #{item.layerNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.money != null">
+	        MONEY = #{item.money,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.eleNumber != null">
+	        ELE_NUMBER = #{item.eleNumber,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.waterNumber != null">
+	        WATER_NUMBER = #{item.waterNumber,jdbcType=DECIMAL},
+	      </if>
+	    </set>
+	    where DORMITORY_NUMBER = #{item.dormitoryNumber,jdbcType=VARCHAR}
+  	 </foreach>
+  </update>
+  
+  <insert id="insertList" parameterType="java.util.List">
+		insert all
+		<foreach collection="list" item="dor">
+			into quxiqi.t_bs_dormitory
+			values(
+				#{dor.dormitoryNumber},
+				#{dor.buildingNumber},
+				#{dor.layerNumber},
+				#{dor.money},
+				#{dor.eleNumber},
+				#{dor.waterNumber}
+			)
+		</foreach>
+		select '1' from dual 
+	</insert>
+</mapper>

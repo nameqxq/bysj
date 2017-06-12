@@ -1,0 +1,92 @@
+-- Create table
+create table T_BS_REPAIR_BILL
+(
+  guid             VARCHAR2(32) default sys_guid() not null,
+  title            VARCHAR2(40) not null,
+  person_name      VARCHAR2(20) not null,
+  phone_number     VARCHAR2(11) not null,
+  context          VARCHAR2(400) not null,
+  status           VARCHAR2(2) not null,
+  user_name        VARCHAR2(16) not null,
+  create_date      DATE default sysdate not null,
+  repair_date      DATE,
+  real_repair_date DATE,
+  image1           VARCHAR2(500),
+  image2           VARCHAR2(500),
+  image3           VARCHAR2(500),
+  handler_person   VARCHAR2(20),
+  handler_phone    VARCHAR2(11),
+  remark           VARCHAR2(500),
+  dormitory_number VARCHAR2(8) not null,
+  refuse_date      DATE,
+  modifi_person    VARCHAR2(20),
+  modifi_date      DATE default sysdate
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_REPAIR_BILL.guid
+  is '主键，流水号';
+comment on column T_BS_REPAIR_BILL.title
+  is '标题';
+comment on column T_BS_REPAIR_BILL.person_name
+  is '联系人';
+comment on column T_BS_REPAIR_BILL.phone_number
+  is '联系电话';
+comment on column T_BS_REPAIR_BILL.context
+  is '详细描述';
+comment on column T_BS_REPAIR_BILL.status
+  is '维修单状态';
+comment on column T_BS_REPAIR_BILL.user_name
+  is '申请人';
+comment on column T_BS_REPAIR_BILL.create_date
+  is '创建时间';
+comment on column T_BS_REPAIR_BILL.repair_date
+  is '预计上门维修时间';
+comment on column T_BS_REPAIR_BILL.real_repair_date
+  is '实际维修时间';
+comment on column T_BS_REPAIR_BILL.image1
+  is '图片1路径';
+comment on column T_BS_REPAIR_BILL.image2
+  is '图片2路径';
+comment on column T_BS_REPAIR_BILL.image3
+  is '图片3路径';
+comment on column T_BS_REPAIR_BILL.handler_person
+  is '维修联系人';
+comment on column T_BS_REPAIR_BILL.handler_phone
+  is '维修人联系电话';
+comment on column T_BS_REPAIR_BILL.remark
+  is '备注';
+comment on column T_BS_REPAIR_BILL.dormitory_number
+  is '宿舍号';
+comment on column T_BS_REPAIR_BILL.refuse_date
+  is '拒绝时间';
+comment on column T_BS_REPAIR_BILL.modifi_person
+  is '修改人';
+comment on column T_BS_REPAIR_BILL.modifi_date
+  is '最后修改时间';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_REPAIR_BILL
+  add constraint T_BS_REPAIR_BILL_GUID_PK primary key (GUID)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

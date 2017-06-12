@@ -1,0 +1,53 @@
+-- Create table
+create table T_BS_REPAIR_BILL_LOG
+(
+  guid             VARCHAR2(32) default sys_guid() not null,
+  repair_bill_guid VARCHAR2(32) not null,
+  pre_guid         VARCHAR2(32),
+  status           VARCHAR2(2) not null,
+  create_date      DATE default sysdate not null,
+  create_person    VARCHAR2(16) not null,
+  remark           VARCHAR2(500)
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_REPAIR_BILL_LOG.guid
+  is '主键。流水号';
+comment on column T_BS_REPAIR_BILL_LOG.repair_bill_guid
+  is '主表guid';
+comment on column T_BS_REPAIR_BILL_LOG.pre_guid
+  is '前一状态guid';
+comment on column T_BS_REPAIR_BILL_LOG.status
+  is '状态';
+comment on column T_BS_REPAIR_BILL_LOG.create_date
+  is '创建时间';
+comment on column T_BS_REPAIR_BILL_LOG.create_person
+  is '创建人';
+comment on column T_BS_REPAIR_BILL_LOG.remark
+  is '备注';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_REPAIR_BILL_LOG
+  add constraint T_BS_REPAIR_BILL_LOG_GUID_PK primary key (GUID)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

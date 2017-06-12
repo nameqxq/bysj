@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.EleLogMapper">
+	<resultMap id="eleLog" type="EleLog">
+	    <id column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="DORMITORY_NUMBER" jdbcType="VARCHAR" property="dormitoryNumber" />
+	    <result column="BUILDING_NUMBER" jdbcType="VARCHAR" property="buildingNumber" />
+	    <result column="LAYER_NUMBER" jdbcType="VARCHAR" property="layerNumber" />
+	    <result column="PRE_GUID" jdbcType="VARCHAR" property="preGuid" />
+	    <result column="YEAR" jdbcType="VARCHAR" property="year" />
+	    <result column="MONTH" jdbcType="VARCHAR" property="month" />
+	    <result column="ENTERING_TIME" property="enteringTime" />
+	    <result column="ELE_NUMBER" jdbcType="DECIMAL" property="eleNumber" />
+	    <result column="ENTERING_PERSON" jdbcType="VARCHAR" property="enteringPerson" />
+	</resultMap>
+	
+	<select id="select" parameterType="EleLog" resultMap="eleLog">
+		select 
+			* 
+		from 
+			quxiqi.t_bs_ele_log
+		<where>
+			<if test="guid != null">
+			  GUID = #{guid,jdbcType=VARCHAR}
+			</if>
+			<if test="dormitoryNumber != null">
+			 and DORMITORY_NUMBER = #{dormitoryNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="buildingNumber != null">
+			  and BUILDING_NUMBER = #{buildingNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="layerNumber != null">
+			  and LAYER_NUMBER = #{layerNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="preGuid != null">
+			  and PRE_GUID = #{preGuid,jdbcType=VARCHAR}
+			</if>
+			<if test="year != null">
+			  and YEAR = #{year,jdbcType=VARCHAR}
+			</if>
+			<if test="month != null">
+			  and MONTH = #{month,jdbcType=VARCHAR}
+			</if>
+			<if test="enteringTime != null">
+			  and ENTERING_TIME = #{enteringTime,jdbcType=DATE}
+			</if>
+			<if test="eleNumber != null">
+			  and ELE_NUMBER = #{eleNumber,jdbcType=DECIMAL}
+			</if>
+			<if test="enteringPerson !=null">
+				and ENTERING_PERSON = #{enteringPerson,jdbcType=VARCHAR}
+			</if>
+		</where> 
+			<if test="orderBy != null">	
+				order by ${orderBy}
+			</if>	
+	</select>
+	
+	
+	<insert id="insert" parameterType="EleLog">
+		 insert into QUXIQI.T_BS_ELE_LOG
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="guid != null">
+	        GUID,
+	      </if>
+	      <if test="dormitoryNumber != null">
+	        DORMITORY_NUMBER,
+	      </if>
+	      <if test="buildingNumber != null">
+	        BUILDING_NUMBER,
+	      </if>
+	      <if test="layerNumber != null">
+	        LAYER_NUMBER,
+	      </if>
+	      <if test="preGuid != null">
+	        PRE_GUID,
+	      </if>
+	      <if test="year != null">
+	        YEAR,
+	      </if>
+	      <if test="month != null">
+	        MONTH,
+	      </if>
+	      <if test="enteringTime != null">
+	        ENTERING_TIME,
+	      </if>
+	      <if test="eleNumber != null">
+	        ELE_NUMBER,
+	      </if>
+	      <if test="enteringPerson !=null">
+			ENTERING_PERSON,
+		  </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="guid != null">
+	        #{guid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="dormitoryNumber != null">
+	        #{dormitoryNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="buildingNumber != null">
+	        #{buildingNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="layerNumber != null">
+	        #{layerNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="preGuid != null">
+	        #{preGuid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="year != null">
+	        #{year,jdbcType=VARCHAR},
+	      </if>
+	      <if test="month != null">
+	        #{month,jdbcType=VARCHAR},
+	      </if>
+	      <if test="enteringTime != null">
+	        #{enteringTime,jdbcType=DATE},
+	      </if>
+	      <if test="eleNumber != null">
+	        #{eleNumber,jdbcType=DECIMAL},
+	      </if>
+	      <if test="enteringPerson !=null">
+			#{enteringPerson,jdbcType=VARCHAR},
+		  </if>
+	    </trim>
+	</insert>
+	
+	
+	<insert id="insertList" parameterType="java.util.List">
+		insert into quxiqi.t_bs_ele_log (
+	        DORMITORY_NUMBER,
+	        BUILDING_NUMBER,
+	        LAYER_NUMBER,
+	        PRE_GUID,
+	        YEAR,
+	        MONTH,
+	        ELE_NUMBER,
+			ENTERING_PERSON
+			)
+	    (
+	    <foreach collection="list" item="eleLog" separator="union all">
+		    select 
+			        temp2.dormitoryNumber,
+			        temp2.buildingNumber,
+			        temp2.layerNumber,
+			       	decode(temp1.preGuid,null,'',temp1.preGuid) as preGuid,
+			        temp2.year ,
+			        temp2.month,
+			        temp2.eleNumber,
+					temp2.enteringPerson
+			from(
+				select *
+			    from (
+			    	select 
+			    		m.guid as preGuid,
+			    		m.dormitory_number as dormitory_number
+			    	from 
+			    		quxiqi.t_bs_ele_log m
+			    	where
+			        		m.dormitory_number = #{eleLog.dormitoryNumber}
+			    	order by m.entering_Time desc 	
+			    )
+			    where
+			    	rownum = 1
+		    ) temp1
+		    right join(
+		    	select 
+		    	 	#{eleLog.dormitoryNumber,jdbcType=VARCHAR} as dormitoryNumber,
+			        #{eleLog.buildingNumber,jdbcType=VARCHAR} as buildingNumber,
+			        #{eleLog.layerNumber,jdbcType=VARCHAR} as layerNumber,
+			        #{eleLog.year,jdbcType=VARCHAR} as year ,
+			        #{eleLog.month,jdbcType=VARCHAR} as month,
+			        #{eleLog.eleNumber,jdbcType=DECIMAL} as eleNumber,
+					#{eleLog.enteringPerson,jdbcType=VARCHAR} as enteringPerson
+				from dual	
+		    ) temp2
+		    on
+		    temp1.dormitory_number = temp2.dormitoryNumber
+	    </foreach>
+	    )
+	</insert>
+	
+<!-- 	<insert id="insertList222" parameterType="java.util.List">
+		insert all
+		<foreach collection="list" item="eleLog">
+			into quxiqi.t_bs_ele_log
+			 <trim prefix="(" suffix=")" suffixOverrides=",">
+		      <if test="eleLog.dormitoryNumber != null">
+		        DORMITORY_NUMBER,
+		      </if>
+		      <if test="eleLog.buildingNumber != null">
+		        BUILDING_NUMBER,
+		      </if>
+		      <if test="eleLog.layerNumber != null">
+		        LAYER_NUMBER,
+		      </if>
+		        PRE_GUID,
+		      <if test="eleLog.year != null">
+		        YEAR,
+		      </if>
+		      <if test="eleLog.month != null">
+		        MONTH,
+		      </if>
+		      <if test="eleLog.enteringTime != null">
+		        ENTERING_TIME,
+		      </if>
+		      <if test="eleLog.eleNumber != null">
+		        ELE_NUMBER,
+		      </if>
+		      <if test="eleLog.enteringPerson !=null">
+				ENTERING_PERSON,
+			  </if>
+		    </trim>
+		    select 
+		    <trim prefix="" suffix="" suffixOverrides=",">
+		      <if test="eleLog.dormitoryNumber != null">
+		        #{eleLog.dormitoryNumber,jdbcType=VARCHAR},
+		      </if>
+		      <if test="eleLog.buildingNumber != null">
+		        #{eleLog.buildingNumber,jdbcType=VARCHAR},
+		      </if>
+		      <if test="eleLog.layerNumber != null">
+		        #{eleLog.layerNumber,jdbcType=VARCHAR},
+		      </if>
+		        preGuid,
+		      <if test="eleLog.year != null">
+		        #{eleLog.year,jdbcType=VARCHAR},
+		      </if>
+		      <if test="eleLog.month != null">
+		        #{eleLog.month,jdbcType=VARCHAR},
+		      </if>
+		      <if test="eleLog.enteringTime != null">
+		        #{eleLog.enteringTime,jdbcType=DATE},
+		      </if>
+		      <if test="eleLog.eleNumber != null">
+		        #{eleLog.eleNumber,jdbcType=DECIMAL},
+		      </if>
+		      <if test="eleLog.enteringPerson !=null">
+				#{eleLog.enteringPerson,jdbcType=VARCHAR},
+			  </if>
+		    </trim>
+		    from (
+		    	select 
+		    		m.guid as preGuid
+		    	from 
+		    		quxiqi.t_bs_ele_log m
+		    	<where>
+		    		<if test="eleLog.dormitoryNumber != null">
+		        		m.dormitory_number = #{eleLog.dormitoryNumber}
+		      		</if>
+		    	</where>
+		    	order by m.entering_Time desc 	
+		    )
+		    where
+		    	rownum = 1
+		</foreach>
+		select 1 from dual;
+	</insert>
+ --></mapper>

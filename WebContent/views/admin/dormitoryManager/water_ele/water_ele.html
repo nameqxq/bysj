@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|水电管理 </title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/admin/dormitoryManager/water_ele/water_ele.css" rel="stylesheet">
+		
+		<script id="dormitoryPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td class="dormitoryNumber" data-type="dor"><a>{{>dormitoryNumber}}</a></td>
+					<td data-type="water"><a>{{>waterNumber}}</a></td>
+					<td data-type="ele"><a>{{>eleNumber}}</a></td>
+					<td data-type="money"><a>{{>money}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="4">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+		<script id="moneyPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr class="{{>year}}{{>month}}">
+					<td>{{>year}}</td>
+					<td>{{>month}}</td>
+					<td class="elePrice"><span>{{>elePrice}}</span></td>
+					<td class="waterPrice"><span>{{>waterPrice}}</span></td>
+					<td><a>修改</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="4">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+		<script id="moneyPageTrInput" type="text/x-jsrender">
+			<div class="form-group " style="width: 50%">
+				<input type="number" class="form-control {{>type}}" step="0.1" style="width: 60%; display: none;" min="0" value="{{>data}}">
+			</div>
+		</script>
+		<script id="moneyPageTrAdd" type="text/x-jsrender">
+			<tr class="{{>year}}{{>month}}" data-type="add">
+				<td>{{>year}}</td>
+				<td class='month'>{{>month}}</td>
+				<td class="elePrice">
+					<div class="form-group " style="width: 50%">
+						<input type="number" class="form-control ele" step="0.1" style="width: 60%;" min="0" value="{{>data}}">
+					</div>				
+				</td>
+				<td class="waterPrice">
+					<div class="form-group " style="width: 50%">
+						<input type="number" class="form-control water" step="0.1" style="width: 60%;" min="0" value="{{>data}}">
+					</div>
+				</td>
+				<td><a>保存</a></td>
+			</tr>
+		</script>
+		<script id="tipBoxTr" type="text/x-jsrender">
+			{{if type=="water"}}
+				{{for data}}
+					<tr>
+						<td>{{>dormitoryNumber}}</td>
+						<td>{{>waterNumber}}</td>
+						<td>{{>enteringTime}}</td>
+						<td>{{>enteringPerson}}</td>
+					</tr>
+				{{/for}}
+			{{else type=="ele"}}
+				{{for data}}
+					<tr>
+						<td>{{>dormitoryNumber}}</td>
+						<td>{{>eleNumber}}</td>
+						<td>{{>enteringTime}}</td>
+						<td>{{>enteringPerson}}</td>
+					</tr>
+				{{/for}}
+			{{else type=="money"}}
+				{{for data}}
+					<tr>
+						<td>{{>dormitoryNumber}}</td>
+						<td>{{>payMoney}}</td>
+						<td>{{>payDate}}</td>
+						<td>{{>payType=="00"?"缴费":"充值"}}</td>
+					</tr>
+				{{/for}}
+			{{else type=="dor"}}
+				{{for data}}
+					<tr>
+						<td>{{>userName}}</td>
+						<td>{{>phoneNumber}}</td>
+						<td>{{>student.id}}</td>
+						<td>{{>createDate}}</td>
+					</tr>
+				{{/for}}
+			{{else type=="no"}}
+				<tr>
+					<td colspan="4">未查询到！</td>
+				</tr>
+			{{/if}}	
+		</script>
+</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column " id="rightPage">
+					<div class="row clearfix">
+						<div class="col-md-12 col-sm-12 column">
+							<ul class="nav nav-tabs tablePage">
+								<li id="dormitoryTab">
+									 <a style="color:#555;" href="javaScript:void(0)">宿舍查询</a>
+								</li>
+								<li id="moneyTab">
+									 <a style="color:#555;" href="javaScript:void(0)">收费标准</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div id="dormitoryPage"  style = "display:none" >
+							<br>
+							<div class="panel panel-default">
+								<br>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<form class="form-inline" role="form">
+										<div class="form-group " style="width: 25%">
+										    <label  for="dormitoryNumber ">宿舍号：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="dormitoryNumber" placeholder="06#01#29...">
+										</div>
+										<div class="form-group" style="width: 25%">
+										    <label  for="buildingNumber">楼号：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="buildingNumber" placeholder="06..">
+										</div>
+										<div class="form-group" style="width: 25%">
+										    <label  for="layerNumber">层数：</label>
+										    <input type="text" class="form-control" style="width: 60%" name="layerNumber" placeholder="01..">
+										</div>
+										<div class="btn search btn-default">search</div>
+									</form>
+								</div>
+								<br>
+							</div>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												水表读数
+											</th>
+											<th>
+												电表读数
+											</th>
+											<th>
+												剩余金额
+											</th>
+										</tr>
+									</thead>
+									<tbody class="dormitoryPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-4 col-sm-4 column form-group">
+										<div class="col-md-4 col-sm-4">
+										</div>
+										<div class="btn btn-default col-md-4 col-sm-4 entering">
+											信息录入
+										</div>
+										<input class="form-control uploadExcel" type="file" value="shangchuang" style="display:none"/>
+									</div>
+									<div class="col-md-4 col-sm-4 column form-group">
+										<div class="col-md-4 col-sm-4">
+										</div>
+										<div class="btn btn-default col-md-4 col-sm-4 downLoad">
+											模板下载
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-4 column form-group">
+										<div class="col-md-4 col-sm-4">
+										</div>
+										<div class="btn btn-default col-md-4 col-sm-4 sendMsg">
+											短信提醒
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- dormitoryPage end -->
+						<div id="moneyPage" style = "display:none">
+							<br>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												年份
+											</th>
+											<th>
+												月份
+											</th>
+											<th>
+												电费（元/千瓦时）
+											</th>
+											<th>
+												水费（元/吨）
+											</th>
+											<th>
+												修改
+											</th>
+										</tr>
+									</thead>
+									<tbody class="moneyPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-sm-12 column form-group">
+										<!-- <div class="col-md-5 col-sm-5">
+										</div> -->
+										<div class="btn btn-default col-md-12 col-sm-12 add">
+											<a>新增</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- moneyPage end -->
+						
+						<div class="tipBox col-md-8" style="display:none">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											宿舍号
+										</th>
+										<th>
+											电表读数
+										</th>
+										<th>
+											录入时间
+										</th>
+										<th>
+											录入人
+										</th>
+									</tr>
+								</thead>
+								<tbody class="tipBoxTbody">
+									
+								</tbody>
+							</table>
+							<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+							</div>
+						</div>
+						<!-- tipBox end -->
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

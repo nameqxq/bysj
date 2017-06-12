@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|水电管理</title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/stu/dormitory/water_ele/water_ele.css" rel="stylesheet">
+</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column" id="rightPage">
+					<div class="type1">
+						<div class="col-md-4 col-sm-4">
+							<div class="thumbnail" id="eleDiv">
+								<img alt="300x200" src="/image/ele.png" />
+								<div class="caption">
+									<h3>
+										<label>用电管理</label>
+									</h3>
+									<p>
+										&nbsp;&nbsp;&nbsp;&nbsp;在这里，您可以看到您宿舍近期的用电情况，以及近期宿舍用电的收费标准、相关方面的重要公告！
+									</p>
+									<p>
+										 <a class="btn btn-primary check" href="javaScript:void(0)">查看详情</a>
+									</p>
+			 					</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="thumbnail" id="waterDiv">
+								<img alt="300x200" src="/image/water.png" />
+								<div class="caption">
+									<h3>
+										<label>用水管理</label>
+									</h3>
+									<p>
+										&nbsp;&nbsp;&nbsp;&nbsp;在这里，您可以看到您宿舍近期的用水情况，以及近期宿舍用水的收费标准、相关方面的重要公告！
+									</p>
+									<p>
+										 <a class="btn btn-primary check" href="javaScript:void(0)">查看详情</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="thumbnail" id="moneyDiv">
+								<img alt="300x200" src="/image/money.png" />
+								<div class="caption">
+									<h3>
+										<label>费用管理</label>
+									</h3>
+									<p>
+										&nbsp;&nbsp;&nbsp;&nbsp;在这里，您可以看到您宿舍近期的费用扣除/缴纳情况，在需要的时候，您也可以在这里为自己的宿舍缴费！
+									</p>
+									<p>
+										 <a class="btn btn-primary check" href="javaScript:void(0)">查看详情</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<div class="type2" style="display: none">
+						<div class="announcement">
+						</div>
+						<div class="row clearfix showPage">
+							<div class="col-md-12 col-sm-12 column">
+								<ul class="nav nav-pills">
+									<li class="active">
+										 <a href="javaScript:void(0)" class="leftBtn">  用电记录</a>
+									</li>
+									<li>
+										 <a href="javaScript:void(0)" class="rightBtn"> 收费标准</a>
+									</li>
+									<li class="pull-right">
+										 <a href="javaScript:void(0)" class="backBtn"> 返回</a>
+									</li>
+									<li class="pull-right">
+										 <a href="javaScript:void(0)" class="pay"> 充值</a>
+									</li>
+								</ul>
+							</div>	
+							<div class="col-md-12 col-sm-12 column  eleMessage showDiv"  style="display:none">	
+								<table class="table table-hover leftTable">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												电表读数
+											</th>
+											<th>
+												录入时间
+											</th>
+											<th>
+												录入人
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<table class="table table-hover rightTable" style="display:none">
+									<thead>
+										<tr>
+											<th>
+												年份
+											</th>
+											<th>
+												月份
+											</th>
+											<th>
+												价格（元/度）
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div class="paging">
+								</div>
+							</div>
+						<!-- eleMessage end -->
+							<div class="col-md-12 col-sm-12 column  waterMessage showDiv"  style="display:none">	
+								<table class="table table-hover leftTable">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												水表读数
+											</th>
+											<th>
+												录入时间
+											</th>
+											<th>
+												录入人
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<table class="table table-hover rightTable" style="display:none">
+									<thead>
+										<tr>
+											<th>
+												年份
+											</th>
+											<th>
+												月份
+											</th>
+											<th>
+												价格（元/吨）
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div class="paging">
+								</div>
+							</div>
+						<!-- waterMessage end -->	
+							<div class="col-md-12 col-sm-12 column  moneyMessage showDiv"  style="display:none">	
+								<table class="table table-hover leftTable">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												操作时间
+											</th>
+											<th>
+												操作人
+											</th>
+											<th>
+												缴费金额(元)
+											</th>
+											<th>
+												余额(元)
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<table class="table table-hover rightTable" style="display:none">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												操作时间
+											</th>
+											<th>
+												操作人
+											</th>
+											<th>
+												充值金额(元)
+											</th>
+											<th>
+												余额(元)
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div class="paging">
+								</div>
+							</div>
+						</div>
+						<!-- showPage end -->
+						<div class="payPage" style="display: none;">
+							<br>
+							<div class="row clearfix">
+								<div class="col-md-12 col-sm-12 column">
+									<div class="col-md-3 col-sm-3 column">
+									</div>
+									<div class="col-md-6 col-sm-6 column">
+										<form class="form-inline" role="form">
+											<div class="form-group">
+											    <label for="payMoney">其余金额：</label>
+											    <input type="number" class="form-control" min="1" id="payMoney" placeholder="请输入金额。。">
+											</div>
+											<div class="btn payBtn inForm" >充值</div>
+										</form>
+									</div>
+									<div class="col-md-3 col-sm-3 column">
+										<div class="btn pull-right payBack"> 返回</div>
+									</div>	
+								</div>
+							</div>
+							<div class="row clearfix">
+								<div class="col-md-4 col-sm-4 column">
+									<a class="btn payBtn" data-info="10">
+										<img alt="10￥" src="/image/10rmb.png"/>
+									</a>
+								</div>
+								<div class="col-md-4 col-sm-4 column">
+									<a class="btn payBtn" data-info="20">
+										<img alt="20￥" src="/image/20rmb.png"/>
+									</a>
+								</div>
+								<div class="col-md-4 col-sm-4 column">
+									<a class="btn payBtn" data-info="30">
+										<img alt="30￥" src="/image/30rmb.png"/>
+									</a>
+								</div>
+							</div>
+							<div class="row clearfix">
+								<div class="col-md-5 col-sm-5 column">
+									<a class="btn payBtn" data-info="50">
+										<img alt="50￥" src="/image/50rmb.png"/>
+									</a>
+								</div>
+								<div class="col-md-7 col-sm-7 column">
+									<a class="btn payBtn" data-info="100">
+										<img alt="100￥" src="/image/100rmb.png"/>
+									</a>
+								</div>
+							</div>
+							<!-- <div class="modal fade shade" id="modal-container-A1002001" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											<h4 class="modal-title" id="myModalLabel">
+												充值
+											</h4>
+										</div>
+										<div class="modal-body">
+											本次充值<span class="rmb"></span>元，是否继续？
+										</div>
+										<div class="modal-footer">
+											 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+											 <button type="button" class="btn btn-primary paySubmit">继续</button>
+										</div>
+									</div>
+								</div>
+							</div> -->
+						</div>	
+						<!-- payPage end -->
+					</div>
+				<!-- type2 end -->
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

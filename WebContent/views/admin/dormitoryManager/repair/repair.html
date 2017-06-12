@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>江理南昌小宿|维修审核 </title>
+		<script data-main="/main" src="/common/plug-in/require/js/require.js"></script>
+		<link href="/common/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">			 
+		<link href="/common/css/common.css" rel="stylesheet">	
+		<link href="/views/admin/dormitoryManager/repair/repair.css" rel="stylesheet">
+		<script id="pendingPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td class="dormitoryNumber" data-info="{{>guid}}"><a>{{>dormitoryNumber}}</a></td>
+					<td data-type="title" title="{{>title}}"><div><a>{{>title}}</a></div></td>
+					<td data-type="phoneNumber"><a>{{>phoneNumber}}</a></td>
+					<td data-type="picture" data-info="{{>picture}}"><a>查看</a></td>
+					<td data-type="dispose"><a class="tg">通过</a>|<a class="jj">拒绝</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="5">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+		<script id="processedIngPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td class="dormitoryNumber" data-info="{{>guid}}"><a>{{>dormitoryNumber}}</a></td>
+					<td data-type="title" title="{{>title}}"><div><a>{{>title}}</a></div></td>
+					<td data-type="phoneNumber"><a>{{>phoneNumber}}</a></td>
+					<td data-type="handlerPhone"><a>{{>handlerPhone}}</a></td>
+					<td data-type="repairDate"><a>{{>repairDate}}</a></td>
+					<td data-type="picture" data-info="{{>picture}}"><a>查看</a></td>
+					<td data-type="status"><a>{{>status}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="7">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+		<script id="processedPageTr" type="text/x-jsrender">
+			{{for data}}
+				<tr>
+					<td class="dormitoryNumber" data-info="{{>guid}}"><a>{{>dormitoryNumber}}</a></td>
+					<td data-type="title" title="{{>title}}"><div><a>{{>title}}</a></div></td>
+					<td data-type="phoneNumber"><a>{{>phoneNumber}}</a></td>
+					<td data-type="realRepairDate"><a>{{>realRepairDate}}</a></td>
+					<td data-type="picture" data-info="{{>picture}}"><a>查看</a></td>
+					<td data-type="status"><a>{{>status}}</a></td>
+					<td data-type="remark"><div><a>{{>remark}}</a></div></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="7">未查询到！</td>
+				</tr>
+			{{/for}}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div id="topLine"></div>
+			<div class="row clearfix">
+				<div class="col-md-2 col-sm-2 column" id="leftTree"></div>
+				<div class="col-md-10 col-sm-10 column" id="rightPage">
+					<div class="row clearfix">
+						<div class="col-md-12 col-sm-12 column">
+							<ul class="nav nav-tabs tablePage">
+								<li id="pendingTab">
+									 <a style="color:#555;" href="javaScript:void(0)">待处理</a>
+								</li>
+								<li id="processedIngTab">
+									 <a style="color:#555;" href="javaScript:void(0)">处理中</a>
+								</li>
+								<li id="processedTab">
+									 <a style="color:#555;" href="javaScript:void(0)">已处理</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="pendingPage" style = "display:none">
+							<br>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												标题
+											</th>
+											<th>
+												联系方式
+											</th>
+											<th>
+												照片
+											</th>
+											<th>
+												处理
+											</th>
+										</tr>
+									</thead>
+									<tbody class="pendingPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>	
+						</div>
+						<!-- pendingPage end -->
+						<div class="processedIngPage" style = "display:none">
+							<br>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												标题
+											</th>
+											<th>
+												联系方式
+											</th>
+											<th>
+												维修人电话
+											</th>
+											<th>
+												预计维修时间
+											</th>
+											<th>
+												照片
+											</th>
+											<th>
+												状态
+											</th>
+										</tr>
+									</thead>
+									<tbody class="processedIngPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>	
+						</div>
+						<!-- processedIngPage end -->
+						<div class="processedPage" style = "display:none">
+							<br>
+							<div class="panel panel-default">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												宿舍号
+											</th>
+											<th>
+												标题
+											</th>
+											<th>
+												联系方式
+											</th>
+											<th>
+												实际维修时间
+											</th>
+											<th>
+												照片
+											</th>
+											<th>
+												状态
+											</th>
+											<th>
+												备注
+											</th>
+										</tr>
+									</thead>
+									<tbody class="processedPageTbody">
+										
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-1 col-sm-1 column"></div>
+									<div class="paging"></div>
+								</div>
+							</div>	
+						</div>
+						<!-- processedPage end -->
+					</div>
+				</div>
+				<!-- tipBox -->
+				<div class="tipBox1 col-md-8" style="display:none">	
+					<br>
+					<div class="row">
+						<form class="form-inline" role="form">
+							<div class="form-group " style="width: 20%">
+							    <label  for="handlerPerson ">维修人：</label>
+							    <input type="text" class="form-control" style="width: 60%" name="handlerPerson" placeholder="李师傅...">
+							</div>
+							<div class="form-group" style="width: 28%">
+							    <label  for="handlerPhone">联系电话：</label>
+							    <input type="text" class="form-control" style="width: 60%" name="handlerPhone" placeholder="1xxxxxxxxxx..">
+							</div>
+							<div class="form-group" style="width: 44%">
+							    <label  for="repairDate">预检日期：</label>
+							    <input type="date" class="form-control" style="width: 60%" name="repairDate" placeholder="xxxx-xx-xx..">
+							</div>
+							<div class="btn submit btn-default" >通过</div>
+						</form>
+					<br>
+					</div>
+				</div>
+				<!-- tipBox1 end -->
+				<div class="tipBox2 col-md-8" style="display:none">
+					
+				</div>
+				<!-- tipBox2 end -->
+			</div>
+		</div>
+	</body>
+</html>

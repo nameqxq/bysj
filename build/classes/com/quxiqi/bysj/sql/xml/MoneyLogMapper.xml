@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.MoneyLogMapper">
+	<resultMap id="moneyLog" type="MoneyLog">
+		<id column="GUID" jdbcType="VARCHAR" property="guid" />
+		<result column="DORMITORY_NUMBER" jdbcType="VARCHAR" property="dormitoryNumber" />
+		<result column="BUILDING_NUMBER" jdbcType="VARCHAR" property="buildingNumber" />
+		<result column="LAYER_NUMBER" jdbcType="VARCHAR" property="layerNumber" />
+		<result column="PAY_MONEY" jdbcType="DECIMAL" property="payMoney" />
+		<result column="PAY_USER" jdbcType="VARCHAR" property="payUser" />
+		<result column="MONEY" jdbcType="DECIMAL" property="money" />
+		<result column="PRE_GUID" jdbcType="VARCHAR" property="preGuid" />
+		<result column="PAY_DATE"  property="payDate" />
+		<result column="PAY_TYPE" jdbcType="VARCHAR" property="payType" />
+	</resultMap>
+	
+	<select id="select" parameterType="MoneyLog" resultMap="moneyLog">
+		select 
+			*
+		from
+			quxiqi.t_bs_money_log
+		<where>
+			<if test="dormitoryNumber != null">
+			  DORMITORY_NUMBER = #{dormitoryNumber}
+			</if>
+			<if test="buildingNumber != null">
+			 and BUILDING_NUMBER = #{buildingNumber}
+			</if>
+			<if test="layerNumber != null">
+			 and LAYER_NUMBER = #{layerNumber}
+			</if>
+			<if test="payMoney != null">
+			 and PAY_MONEY = #{payMoney}
+			</if>
+			<if test="payUser != null">
+			 and PAY_USER = #{payUser}
+			</if>
+			<if test="money != null">
+			 and MONEY = #{money}
+			</if>
+			<if test="preGuid != null">
+			 and PRE_GUID = #{preGuid}
+			</if>
+			<if test="payDate != null">
+			 and PAY_DATE = #{payDate}
+			</if>
+			<if test="payType != null">
+			 and PAY_TYPE = #{payType}
+			</if>
+		</where>
+			<if test="orderBy != null">	
+				order by ${orderBy}
+			</if>		
+	</select>
+	
+	<insert id="insert" parameterType="MoneyLog">
+		insert into quxiqi.t_bs_money_log (
+		        DORMITORY_NUMBER,
+		        BUILDING_NUMBER,
+		        LAYER_NUMBER,
+		        PAY_MONEY,
+		        PAY_USER,
+		        MONEY,
+		        PRE_GUID,
+		        PAY_TYPE
+			)
+		select 
+		        temp2.dormitoryNumber,
+		        temp2.buildingNumber,
+		        temp2.layerNumber,
+		        temp2.payMoney ,
+		        temp2.payUser,
+		        temp2.money,
+		        decode(temp1.preGuid,null,'',temp1.preGuid) as preGuid ,
+				temp2.payType
+		from (		
+		   	select * 
+		    from (
+		    	select 
+		    		m.guid as preGuid,
+		    		m.dormitory_number as dormitory_number
+		    	from 
+		    		quxiqi.t_bs_money_log m
+		    	where
+		        		m.dormitory_number = #{dormitoryNumber}
+		    	order by m.PAY_DATE desc 	
+		    ) 
+		    where
+		    	rownum = 1
+	   	) temp1 
+	    right join (
+	    	select 
+	    		#{dormitoryNumber,jdbcType=VARCHAR} as dormitoryNumber,
+		        #{buildingNumber,jdbcType=VARCHAR} as buildingNumber,
+		        #{layerNumber,jdbcType=VARCHAR} as layerNumber,
+		        #{payMoney,jdbcType=VARCHAR} as payMoney ,
+		        #{payUser,jdbcType=VARCHAR} as payUser,
+		        #{money,jdbcType=DECIMAL} as money,
+				#{payType,jdbcType=VARCHAR} as payType
+			from dual	
+	    ) temp2
+	    on 
+	    temp1.dormitory_number = temp2.dormitoryNumber
+	</insert>
+	
+	
+	<insert id="insertList" parameterType="java.util.List">
+		insert into quxiqi.t_bs_money_log (
+		        DORMITORY_NUMBER,
+		        BUILDING_NUMBER,
+		        LAYER_NUMBER,
+		        PAY_MONEY,
+		        PAY_USER,
+		        MONEY,
+		        PRE_GUID,
+		        PAY_TYPE
+			)
+	    (
+	    <foreach collection="list" item="moneyLog" separator="union all">
+		    select 
+			        temp2.dormitoryNumber,
+			        temp2.buildingNumber,
+			        temp2.layerNumber,
+			        temp2.payMoney ,
+			        temp2.payUser,
+			        temp2.money,
+			        decode(temp1.preGuid,null,'',temp1.preGuid) as preGuid ,
+					temp2.payType
+			from (		
+			   	select * 
+			    from (
+			    	select 
+			    		m.guid as preGuid,
+			    		m.dormitory_number as dormitory_number
+			    	from 
+			    		quxiqi.t_bs_money_log m
+			    	where
+			        		m.dormitory_number = #{moneyLog.dormitoryNumber}
+			    	order by m.PAY_DATE desc 	
+			    ) 
+			    where
+			    	rownum = 1
+		   	) temp1 
+		    right join (
+		    	select 
+		    		#{moneyLog.dormitoryNumber,jdbcType=VARCHAR} as dormitoryNumber,
+			        #{moneyLog.buildingNumber,jdbcType=VARCHAR} as buildingNumber,
+			        #{moneyLog.layerNumber,jdbcType=VARCHAR} as layerNumber,
+			        #{moneyLog.payMoney,jdbcType=VARCHAR} as payMoney ,
+			        #{moneyLog.payUser,jdbcType=VARCHAR} as payUser,
+			        #{moneyLog.money,jdbcType=DECIMAL} as money,
+					#{moneyLog.payType,jdbcType=VARCHAR} as payType
+				from dual	
+		    ) temp2
+		    on 
+		    temp1.dormitory_number = temp2.dormitoryNumber
+	    </foreach>
+	    )
+	</insert>
+</mapper>

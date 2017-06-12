@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 数据库连接
+	<properties resource="oracle.properties"></properties>
+	 -->
+	
+	<!-- 别名 -->
+	<typeAliases>
+		<package name="com.quxiqi.bysj.bean"/>
+	</typeAliases>
+	
+	<!-- 处理器 -->
+	<typeHandlers></typeHandlers>
+	
+	<plugins>
+	    <!-- com.github.pagehelper为PageHelper类所在包名 -->
+	    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+	        <!-- 使用下面的方式配置参数 -->
+	        <property name="helperDialect" value="oracle"/>
+	        <property name="params" value="pageSize=pageSizee"/>
+	    </plugin>
+	</plugins>
+	
+	<!-- <environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}" /> 
+				<property name="url" value="${jdbc.url}" /> 
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	
+	<!-- <mappers>
+		<mapper resource="com/quxiqi/bysj/sql/xml/UserMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/DormitoryMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/UserLogMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/StudentMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/UrlCodeMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/EleLogMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/WaterLogMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/ElePriceMapper.xml"/>
+		<mapper resource="com/quxiqi/bysj/sql/xml/MoneyLogMapper.xml"/>
+	</mappers> -->
+	
+</configuration>

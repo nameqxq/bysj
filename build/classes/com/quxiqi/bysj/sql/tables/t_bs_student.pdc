@@ -1,0 +1,59 @@
+-- Create table
+create table T_BS_STUDENT
+(
+  id               VARCHAR2(20) not null,
+  name             VARCHAR2(10) not null,
+  age              NUMBER(16,8) not null,
+  person_number    VARCHAR2(18) not null,
+  class_name       VARCHAR2(100) not null,
+  admission_date   DATE not null,
+  school_year      NUMBER not null,
+  gender           VARCHAR2(1) not null,
+  dormitory_number VARCHAR2(10)
+)
+tablespace SYSTEM
+  pctfree 10
+  pctused 40
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64
+    next 8
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column T_BS_STUDENT.id
+  is '学号';
+comment on column T_BS_STUDENT.name
+  is '名字';
+comment on column T_BS_STUDENT.age
+  is '年龄';
+comment on column T_BS_STUDENT.person_number
+  is '身份证';
+comment on column T_BS_STUDENT.class_name
+  is '班级信息';
+comment on column T_BS_STUDENT.admission_date
+  is '入学日期';
+comment on column T_BS_STUDENT.school_year
+  is '在校时长（几年制）';
+comment on column T_BS_STUDENT.gender
+  is '性别：0为女，1为男';
+comment on column T_BS_STUDENT.dormitory_number
+  is '宿舍号';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table T_BS_STUDENT
+  add constraint T_BS_STUDENT_ID_PK primary key (ID)
+  using index 
+  tablespace SYSTEM
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );

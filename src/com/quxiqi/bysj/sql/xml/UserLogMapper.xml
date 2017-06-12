@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quxiqi.bysj.dao.mapper.UserLogMapper">
+	<resultMap type="UserLog" id="userLog">
+		<id column="guid" property="guid"/>
+		<result column="userName" property="userName"/>
+		<result column="onlineTime" property="onlineTime"/>
+		<result column="loginDate" property="loginDate"/>
+		<result column="logoutDate" property="logoutDate"/>
+		<result column="loginIp" property="loginIp"/>
+		<result column="preGuid" property="preGuid"/>
+		<result column="onlineFlag" property="onlineFlag"/>
+	</resultMap>
+	
+	
+	<select id="select" resultMap="userLog" parameterType="UserLog">
+		select 
+			GUID	as "guid",  <!-- 流水号，id，主键 -->
+			USER_NAME	as "userName",  <!-- 用户名 -->
+			ONLINE_TIME	as "onlineTime",  <!-- 在线时长 -->
+			LOGIN_DATE	as "loginDate",  <!-- 登录时间 -->
+			LOGOUT_DATE	as "logoutDate",  <!-- 下线时间 -->
+			LOGIN_IP	as "loginIp",  <!-- 客户端IP地址 -->
+			PRE_GUID	as "preGuid", <!-- 前一id -->
+			ONLINE_Flag as "onlineFlag" 
+		from QUXIQI.T_BS_USER_LOG 
+		where 1=1
+			<if test="guid != null">
+				and guid = #{guid}
+			</if>
+			<if test="userName != null">
+				and user_name = #{userName}
+			</if>
+			<if test="onlineTime != null">
+				and online_time = #{onlineTime}
+			</if>
+			<if test="onlineFlag != null">
+				and online_flag = #{onlineFlag}
+			</if>
+			<if test="loginDate != null">
+				and login_date = #{loginDate}
+			</if>
+			<if test="logoutDate != null">
+				and logout_date = #{logoutDate}
+			</if>
+			<if test="loginIp != null">
+				and login_ip = #{loginIp}
+			</if>
+			<if test="preGuid != null">
+				and pre_guid = #{preGuid}
+			</if>
+			<if test="orderBy != null">
+				order by ${orderBy}
+			</if>	
+	</select>
+	
+	<insert id="insert" parameterType="UserLog">
+		INSERT INTO QUXIQI.T_BS_USER_LOG (
+				PRE_GUID, <!-- 前一id --> 
+				LOGIN_IP,  <!-- 客户端IP地址 -->
+				USER_NAME  <!-- 用户名 -->
+			)		
+		select 
+		        decode(temp1.preGuid,null,'',temp1.preGuid) as preGuid, 
+		        temp2.loginIp,
+		        temp2.userName 
+		from (		
+		   	select * 
+		    from (
+		    	select 
+		    		m.guid as preGuid,
+		    		m.user_name as user_name
+		    	from 
+		    		quxiqi.T_BS_USER_LOG m
+		    	where
+		        	m.user_name = #{userName}
+		    	order by m.logout_date desc 	
+		    ) 
+		    where
+		    	rownum = 1
+	   	) temp1 
+	    right join (
+	    	select 
+		        #{loginIp} as loginIp,
+		        #{userName} as userName
+			from dual	
+	    ) temp2
+	    on 
+	    temp1.user_name = temp2.userName
+	</insert>
+	<!-- 用户下线时调用 -->
+	<update id="update" parameterType="UserLog">
+		UPDATE quxiqi.t_bs_user_log
+			SET (logout_date,online_time,online_flag ) = (
+				SELECT sysdate, online_time,'0'
+				FROM (
+					select 
+						ROUND(TO_NUMBER(sysdate - LOGIN_DATE) * 24 * 60 * 60) as online_time
+						From quxiqi.t_bs_user_log
+						where user_name = #{userName}
+						and
+						online_flag = '1'
+				)
+			)
+			WHERE user_name = #{userName}
+			and
+			online_flag = '1'
+			
+			<!-- 
+			UPDATE quxiqi.t_bs_user_log
+			   SET (logout_date, online_time, online_flag) =
+			       (SELECT sysdate, online_time, '0'
+			          FROM (select ROUND(TO_NUMBER(sysdate -LOGIN_DATE) * 24 * 60 * 60) as online_time
+			                  From quxiqi.t_bs_user_log
+			                 where user_name = 'qxq'
+			                   and online_flag = '1'))
+			 WHERE user_name = 'qxq'
+			   and online_flag = '1'
+			 -->
+	</update>
+</mapper>
